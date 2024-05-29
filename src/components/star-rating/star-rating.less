@@ -1,0 +1,22 @@
+@import  "../../global.less";
+
+.rating-position {
+  .flex_layout(unset, 0.3rem, unset, center);
+  line-height: 1.2rem;
+
+  &.left {
+    flex-direction: row-reverse;
+  }
+  
+  &.top {
+    flex-direction: column-reverse;
+  }
+  &.bottom {
+    flex-direction: column;
+  }
+}
+
+.stars-container {
+  .flex_layout();
+  width: 100%;
+}

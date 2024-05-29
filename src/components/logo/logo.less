@@ -1,0 +1,47 @@
+@import "../../global.less";
+
+.logo {
+  .flex_layout(unset, 0.8rem, unset, center);
+
+  h1 {
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: #fff;
+    transition: ease-in-out 0.7s;
+    transition-behavior: allow-discrete;
+    margin-bottom: 0.5rem;
+  }
+
+  img {
+    transition: ease-in-out 0.3s;
+    transform: translateX(-0.5rem);
+    z-index: 1;
+    filter: brightness(85%);
+
+    &:hover {
+      filter: brightness(110%);
+    }
+  }
+
+  &.logo-highlight img {
+    filter: brightness(110%);
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .logo {
+    h1 {
+      transform: translateX(-20rem);
+      display: none;
+    }
+    img {
+      width: 20rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 586px) {
+  img {
+    width: 15rem;
+  }
+}

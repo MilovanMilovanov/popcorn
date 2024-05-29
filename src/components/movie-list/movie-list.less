@@ -1,0 +1,50 @@
+@import "../../global.less";
+
+.list {
+  list-style: none;
+  padding: 0.8rem 1rem;
+
+  .poster-img {
+    width: 160%;
+    grid-row: 1 / -1;
+    filter: brightness(95%);
+    .shine_image_hover_effect(100%);
+  }
+
+  .movie-title {
+    padding-left: 0.7rem;
+    font-size: 1.8rem;
+  }
+
+  p {
+    .flex_layout(unset, 0.8rem, unset, center);
+  }
+
+  &.list-movies li {
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+      background: var(--color-background-100);
+      .poster-img {
+        filter: brightness(125%);
+        -webkit-mask-position: 0 0;
+      }
+    }
+    &:focus {
+      outline: 0.2rem solid rgb(50, 154, 202);
+    }
+  }
+
+  li {
+    position: relative;
+    display: grid;
+    grid-template-columns: 4rem 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 2.4rem;
+    font-size: 1.6rem;
+    align-items: center;
+    padding: 1.6rem 3.2rem;
+    border-bottom: 0.1rem solid var(--color-background-100);
+  }
+}
