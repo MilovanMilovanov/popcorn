@@ -1,7 +1,7 @@
 Movie App
 
 Overview -
-  This project is a highly interactive movie application built with modern web technologies.
+  This project is a highly interactive and responsive movie application.
   It leverages Vite as the build tool for fast development and optimized builds.
   The main stack used for this app includes:
   React, TypeScript, Less, Vitest, and the react-beautiful-dnd library.
