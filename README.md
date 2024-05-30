@@ -21,3 +21,5 @@ Features -
   using the react-beautiful-dnd library, enhancing the interactive experience.
 • Theme Switcher: Users can switch between different themes,
   with their preferences preserved in localStorage.
+• Star Rating: An independent StarRating component that can be used across various projects. It allows you to get a userRating by 
+  providing a setter function to the component.
