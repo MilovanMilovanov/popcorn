@@ -9,7 +9,7 @@ const component = (props?: { [index: string]: string | boolean | Function }) =>
     </Button>
   );
 
-describe("Button Redenring", () => {
+describe("Button Rendering", () => {
   test("Should render children", () => {
     component();
     expect(screen.queryByText("Test Content")).toBeInTheDocument();
