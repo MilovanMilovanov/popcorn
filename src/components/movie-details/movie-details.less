@@ -32,7 +32,7 @@
   font-size: 1.4rem;
 
   .details-header {
-    .flex_layout(unset, 0);
+    .flex_layout();
 
     .poster-img {
       width: 15rem;
@@ -40,7 +40,9 @@
     }
 
     .details-overview {
-    .flex_layout(column, 1.4rem);
+      width: 100%;
+
+    .flex_layout(@direction: column, @gap: 1.4rem);
       padding: 2.4rem 3rem;
       background: var(--color-background-100);
 
@@ -52,26 +54,26 @@
       }
 
       p {
-        .flex_layout(unset, 1.4rem);
+        .flex_layout(@gap: 1.4rem);
       }
     }
   }
 
   .details-body {
-    .flex_layout(column, 1.6rem);
+    .flex_layout(@direction: column, 1.6rem);
     padding: 4rem;
   }
 }
 
 .rating {
-  padding: 2rem;
+  padding: 1.5rem 2rem 1.5rem 1rem;
   margin-bottom: 0.8rem;
   border-radius: 0.9rem;
   font-weight: 600;
   background-color: var(--color-background-100);
-  
+
   p {
-    .flex_layout(unset, 1rem);
+    .flex_layout(@gap: 1rem);
   }
 }
 

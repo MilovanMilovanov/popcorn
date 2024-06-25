@@ -17,7 +17,7 @@
   }
 
   p {
-    .flex_layout(unset, 0.8rem, unset, center);
+    .flex_layout(@gap: 0.8rem, @align: center);
   }
 
   &.list-movies li {
@@ -32,19 +32,19 @@
       }
     }
     &:focus {
-      outline: 0.2rem solid rgb(50, 154, 202);
+      outline: 0.2rem solid var(--btn-focus-color);
     }
   }
 
   li {
     position: relative;
     display: grid;
+    align-items: center;
     grid-template-columns: 4rem 1fr;
     grid-template-rows: auto auto;
     column-gap: 2.4rem;
-    font-size: 1.6rem;
-    align-items: center;
     padding: 1.6rem 3.2rem;
+    font-size: 1.6rem;
     border-bottom: 0.1rem solid var(--color-background-100);
   }
 }

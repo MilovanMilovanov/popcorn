@@ -115,7 +115,7 @@ export default function MovieDetails(props: DetailsProps): JSX.Element {
               ) : (
                 <StarRating
                   maxRating={10}
-                  size={30}
+                  size={22}
                   color={"goldenrod"}
                   alpha={0.3}
                   setUserRating={setUserRating}

@@ -3,14 +3,16 @@ import Button from "../button/Button";
 import { PropsWithOptionalChildren } from "../../interfaces/interfaces";
 import { Draggable } from "react-beautiful-dnd";
 import "./box.less";
+import DragIcon from "../icons/DragIcon";
 
 interface BoxProps extends PropsWithOptionalChildren {
   id: string;
   index: number;
 }
 
-export default function Box({ index, id, children }: BoxProps): JSX.Element {
+export default function Box(props: BoxProps) {
   const [isOpen, setIsOpen] = useState<boolean>(true);
+  const { index, id, children } = props;
 
   const handleToggleBox = () => {
     setIsOpen((open) => !open);
@@ -26,13 +28,16 @@ export default function Box({ index, id, children }: BoxProps): JSX.Element {
           className="box"
           data-testid="boxId"
         >
-          <Button
-            className="btn-toggle"
-            onClick={handleToggleBox}
-            {...{ "aria-expanded": isOpen }}
-          >
-            {isOpen ? "–" : "+"}
-          </Button>
+          <div className="box-header">
+            <DragIcon />
+            <Button
+              className="btn-toggle"
+              onClick={handleToggleBox}
+              {...{ "aria-expanded": isOpen }}
+            >
+              {isOpen ? "–" : "+"}
+            </Button>
+          </div>
           {isOpen && children}
         </section>
       )}
