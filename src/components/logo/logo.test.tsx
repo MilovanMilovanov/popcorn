@@ -1,26 +1,37 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
-import Logo from "./Logo";
+import Logo, { LogoProps } from "./Logo";
 
-const component = (param?: boolean) => render(<Logo isMovieLoaded={param} />);
+const props: LogoProps = {
+  isMovieLoaded: true,
+  testId: "logo-testId",
+  children: (
+    <>
+      <img src="src\assets\popcorn.jpg" alt="test" />
+      <h1>Popcorn</h1>
+    </>
+  ),
+};
+
+const component = (params = props) => render(<Logo {...params} />);
 
 describe("Logo Rendering", () => {
-  test("The Logo should be visible", () => {
+  test("The Logo should be rendered", () => {
     component();
-    expect(screen.queryByAltText("animated popcorn image")).toBeInTheDocument();
+    const logo = screen.getByTestId(props.testId!);
+    expect(logo).toBeInTheDocument();
+    expect(screen.queryByAltText("test")).toBeInTheDocument();
   });
 
   test("The logo-highlight class should be present", () => {
-    const logoHightlight = true;
-    component(logoHightlight);
-    const wrapper = screen.getByTestId("logoId");
-    expect(wrapper).toHaveClass("logo-highlight");
+    component({ ...props, isMovieLoaded: true });
+    const logo = screen.getByTestId(props.testId!);
+    expect(logo).toHaveClass("logo-highlight");
   });
 
   test("The logo-highlight class shouldn't be present", () => {
-    const logoHightlight = false;
-    component(logoHightlight);
-    const wrapper = screen.getByTestId("logoId");
-    expect(wrapper).not.toHaveClass("logo-highlight");
+    component({ ...props, isMovieLoaded: false });
+    const logo = screen.getByTestId(props.testId!);
+    expect(logo).not.toHaveClass("logo-highlight");
   });
 });

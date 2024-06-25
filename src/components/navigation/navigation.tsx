@@ -1,12 +1,15 @@
-import { PropsWithOptionalChildren } from "../../interfaces/interfaces";
+import { ReactNode } from "react";
 import "./navigation.less";
 
-export default function Navigation(
-  props: PropsWithOptionalChildren
-): JSX.Element {
+export interface NavigationProps {
+  testId?: string;
+  children?: ReactNode;
+}
+export default function Navigation(props: NavigationProps) {
+  const { testId, children } = props;
   return (
-    <nav className="nav-bar" data-testid="navId">
-      {props.children}
+    <nav className="nav-bar" data-testid={testId}>
+      {children}
     </nav>
   );
 }

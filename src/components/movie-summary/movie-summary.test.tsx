@@ -3,6 +3,8 @@ import { describe, expect, test } from "vitest";
 import MovieSummary from "./Movie-summary";
 import { MovieDetailsProps } from "../movie/Movie";
 
+const testId = "summary-testId";
+
 const watched: MovieDetailsProps[] = [
   {
     Runtime: "148 min",
@@ -11,17 +13,18 @@ const watched: MovieDetailsProps[] = [
   },
 ];
 
-const component = (watched: MovieDetailsProps[]) => {
-  render(<MovieSummary watched={watched} />);
+const component = (params = watched as MovieDetailsProps[]) => {
+  render(<MovieSummary testId={testId} watched={params} />);
 };
 
 describe("MovieSummary Redenring", () => {
+  beforeEach(() => {
+    component();
+  });
   test("Should render MovieSummary component", () => {
-    component(watched);
-    expect(screen.getByTestId("movieSummaryId")).toBeInTheDocument();
+    expect(screen.getByTestId(testId)).toBeInTheDocument();
   });
   test("Should render the length of watchedlist", () => {
-    component(watched);
     expect(screen.queryByText(`${watched.length} movies`)).toBeInTheDocument();
   });
 });

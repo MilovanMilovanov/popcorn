@@ -11,6 +11,7 @@ const props: MovieComponentProps<MovieDetailsProps> = {
       Year: "2010",
     },
   ],
+  testId: "movie-list-testId",
   handleRemoveMovie: vi.fn(),
 };
 
@@ -21,7 +22,7 @@ const component = (props: MovieComponentProps<MovieDetailsProps>) => {
 describe("MovieList Redenring", () => {
   test("MovieList should be rendered", () => {
     component(props);
-    const list = screen.getByTestId("movieListId");
+    const list = screen.getByTestId(props.testId!);
 
     expect(list).toBeInTheDocument();
     const { Title, Year } = props.movies!.at(0)!;

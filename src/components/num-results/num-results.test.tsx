@@ -1,17 +1,20 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
-import NumResults from "./Num-results";
+import NumResults, { NumResultsProps } from "./Num-results";
 
-const resultsLength = 7;
+const props: NumResultsProps = {
+  numberOfResults: 7,
+  testId: "number-results-testId",
+};
 
 const component = () => {
-  render(<NumResults num={resultsLength} />);
+  render(<NumResults {...props} />);
 };
 
 describe("NumResults Redenring", () => {
   test("Should render the length of search result", () => {
     component();
-    expect(screen.getByTestId("numResultsId")).toBeInTheDocument();
-    expect(screen.queryByText(resultsLength)).toBeInTheDocument();
+    expect(screen.getByTestId(props.testId!)).toBeInTheDocument();
+    expect(screen.queryByText(props.numberOfResults)).toBeInTheDocument();
   });
 });

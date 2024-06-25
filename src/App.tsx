@@ -17,6 +17,7 @@ import Main from "./components/main/Main";
 import { MovieDetailsProps } from "./components/movie/Movie";
 import Switch from "./components/switch/Switch";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
+import Loader from "./components/loading/Loading";
 
 export default function App() {
   const [query, setQuery] = useState<string>("");
@@ -68,8 +69,16 @@ export default function App() {
       id: "movieList",
       content: (index: number) => (
         <Box id="movieList" key="movieList" index={index}>
-          {query.length < 3 && <GenericMessage text="Enter a movie title" />}
-          {isLoading && <Loading />}
+          {query.length < 3 && (
+            <GenericMessage>
+              <span>Enter a movie title</span>
+            </GenericMessage>
+          )}
+          {isLoading && (
+            <Loader>
+              <span>Loading movies...</span>
+            </Loader>
+          )}
           {!isLoading && !error && (
             <MovieList
               {...{ movies, selectedId, handleSelectedId, isBoxOrderChanged }}
@@ -107,9 +116,12 @@ export default function App() {
     <>
       <DragDropContext onDragEnd={handleDragEnd}>
         <Navigation>
-          <Logo isMovieLoaded={Boolean(movies.length)} />
+          <Logo isMovieLoaded={Boolean(movies.length)}>
+            <img src="src\assets\popcorn.jpg" alt="animated popcorn image" />
+            <h1>usePopcorn</h1>
+          </Logo>
           <Search {...{ query, handleSearch }}>
-            <NumResults num={movies.length} />
+            <NumResults numberOfResults={movies.length} />
           </Search>
           <Switch />
         </Navigation>

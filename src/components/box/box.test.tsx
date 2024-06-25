@@ -1,19 +1,26 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
-import Box from "./box";
+import Box, { BoxProps } from "./Box";
+
+const props: BoxProps = {
+  id: "test",
+  index: 1,
+  testId: "box-testId",
+};
 
 const component = () =>
   render(
-    <Box>
+    <Box {...props}>
       <p>Test Content</p>
     </Box>
   );
 
 describe("Box Rendering", () => {
-  test("Does not render children when IsOpen: false", () => {
+  beforeEach(() => {
     component();
-    const button = screen.getByTestId("btnId");
-
+  });
+  test("Does not render children when IsOpen: false", () => {
+    const button = screen.getByTestId(props.testId!);
     fireEvent.click(button);
     expect(button).toHaveAttribute("aria-expanded", "false");
     expect(screen.queryByText("Test Content")).not.toBeInTheDocument();
@@ -21,9 +28,7 @@ describe("Box Rendering", () => {
   });
 
   test("Renders children when isOen: true", () => {
-    component();
     const button = screen.getByTestId("btnId");
-
     expect(button).toHaveAttribute("aria-expanded", "true");
     expect(screen.queryByText("Test Content")).toBeInTheDocument();
     expect(screen.getByText("–")).toBeInTheDocument();

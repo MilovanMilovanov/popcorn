@@ -5,13 +5,14 @@ import NumResults from "../num-results/Num-results";
 
 const props: SearchProps = {
   query: "test",
+  testId: "search-testId",
   handleSearch: vi.fn(),
 };
 
 const component = () => {
   render(
     <Search {...props}>
-      <NumResults num={0} />
+      <NumResults numberOfResults={0} />
     </Search>
   );
 };
@@ -19,12 +20,11 @@ const component = () => {
 describe("Search Redenring", () => {
   test("Should render Search elements", () => {
     component();
-    expect(screen.getByTestId("searchId")).toBeInTheDocument();
-    expect(screen.getByTestId("numResultsId")).toBeInTheDocument();
+    expect(screen.getByTestId(props.testId!)).toBeInTheDocument();
   });
 
   test("Search bar should have a class attribute", () => {
     component();
-    expect(screen.getByTestId("searchId")).toHaveAttribute("class");
+    expect(screen.getByTestId(props.testId!)).toHaveAttribute("class");
   });
 });

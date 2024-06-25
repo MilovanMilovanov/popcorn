@@ -83,7 +83,8 @@ const arrowLeftAndRightKeyHandlers = {
 
 export default function MovieList(props: MovieComponentProps): JSX.Element {
   const movieRef = useRef<HTMLUListElement>(null);
-  const { movies, selectedId, handleSelectedId, isBoxOrderChanged } = props;
+  const { movies, selectedId, testId, isBoxOrderChanged, handleSelectedId } =
+    props;
 
   const keyHandlerParams = {
     movieRef,
@@ -98,7 +99,7 @@ export default function MovieList(props: MovieComponentProps): JSX.Element {
   });
 
   return (
-    <ul ref={movieRef} className="list list-movies" data-testid="movieListId">
+    <ul ref={movieRef} className="list list-movies" data-testid={testId}>
       {movies?.map((movie) => (
         <Movie
           key={movie.imdbID}

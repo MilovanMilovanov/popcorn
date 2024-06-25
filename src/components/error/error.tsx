@@ -1,10 +1,15 @@
 import "./error.less";
 
-export default function ErrorMessage(props: { error: string }): JSX.Element {
+export interface ErrorProps {
+  error: string;
+  testId?: string;
+}
+export default function ErrorMessage(props: ErrorProps) {
+  const { error, testId } = props;
   return (
-    <p className="error" data-testid="errorId">
+    <p data-testid={testId} className="error">
       <span>❌</span>
-      {props.error}
+      {error}
     </p>
   );
 }

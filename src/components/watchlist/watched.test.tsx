@@ -19,6 +19,7 @@ const props: MovieComponentProps<MovieDetailsProps> = {
       userRating: "7",
     },
   ],
+  testId: "watchlist-testId",
   selectedId: "tt1375666",
   handleRemoveMovie: vi.fn(),
 };
@@ -33,7 +34,7 @@ describe("WatchedList Redenring", () => {
   test("Should render wathclist props", () => {
     component(props);
 
-    expect(screen.getByTestId("watchedListId")).toBeInTheDocument();
+    expect(screen.getByTestId(props.testId!)).toBeInTheDocument();
     expect(screen.queryByText(Title!)).toBeInTheDocument();
     expect(screen.queryByText(imdbRating!)).toBeInTheDocument();
     expect(screen.queryByText(userRating!)).toBeInTheDocument();

@@ -1,10 +1,25 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
-import Loading from "./Loading";
+import Loader, { LoaderProps } from "./Loading";
+
+const props: LoaderProps = {
+  testId: "loader-testId",
+  children: <span>Loading movies...</span>,
+};
+
+const component = () => render(<Loader {...props} />);
 
 describe("Loaiding Redenring", () => {
-  test("Should render the following text - 'Loading...'", () => {
-    render(<Loading />);
-    expect(screen.getByText("Loading...")).toBeInTheDocument();
+  beforeEach(() => {
+    component();
+  });
+
+  test("Loader component should be visible", () => {
+    const loader = screen.getByTestId(props.testId!);
+    expect(loader).toBeInTheDocument();
+  });
+
+  test("Should render shildren content", () => {
+    expect(screen.getByText("Loading movies...")).toBeVisible();
   });
 });

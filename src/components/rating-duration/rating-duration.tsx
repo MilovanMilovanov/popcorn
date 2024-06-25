@@ -1,16 +1,14 @@
 import { MovieDetailsProps } from "../movie/Movie";
 import "./rating-duration.less";
 
-export default function RatingAndDuration(
-  props: MovieDetailsProps
-): JSX.Element {
-  const { imdbRating, userRating, Runtime } = props;
+export interface RatingAndDurationProps extends MovieDetailsProps {
+  testId?: string;
+}
+export default function RatingAndDuration(props: RatingAndDurationProps) {
+  const { imdbRating, userRating, Runtime, testId } = props;
 
   return (
-    <section
-      className="movie-rating-duration"
-      data-testid="ratingAndDurationId"
-    >
+    <section className="movie-rating-duration" data-testid={testId}>
       <p>
         <span className="icon">⭐️</span>
         <span>{imdbRating}</span>

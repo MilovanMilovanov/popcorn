@@ -6,6 +6,7 @@ import Star from "./star/star";
 const props: StarRatingProps = {
   maxRating: 5,
   starIndex: 3,
+  testId: "stars-rating-testId",
 };
 
 const component = (props: StarRatingProps) => {
@@ -19,7 +20,7 @@ const component = (props: StarRatingProps) => {
 describe("StarRating Redenring", () => {
   test("Should render StarsRating component", () => {
     component(props);
-    expect(screen.getByTestId("starsRatingId")).toBeInTheDocument();
+    expect(screen.getByTestId(props.testId!)).toBeInTheDocument();
   });
 
   test("Should render 7 Star istances", () => {

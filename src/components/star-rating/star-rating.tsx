@@ -28,13 +28,21 @@ export interface StarRatingProps {
   setUserRating?: (num: number) => void;
   handleUpdateRating?: (num: number) => void;
   handleHover?: (num: number) => void;
+  testId?: string;
 }
 
 export default function StarRating(props: StarRatingProps): JSX.Element {
   const [rating, setRating] = useState<number>(0);
   const [hover, setHover] = useState<number>(0);
-  const { maxRating, size, color, alpha, ratingPosition, setUserRating } =
-    props;
+  const {
+    maxRating,
+    size,
+    color,
+    alpha,
+    ratingPosition,
+    testId,
+    setUserRating,
+  } = props;
 
   const handleUpdateRating = (curr: number) => {
     setRating(curr);
@@ -54,7 +62,7 @@ export default function StarRating(props: StarRatingProps): JSX.Element {
     <div
       className={`rating-position ${ratingPosition}`}
       style={ratingStyles}
-      data-testid="starsRatingId"
+      data-testid={testId}
     >
       <div className="stars-container">
         {Array.from({ length: maxRating ?? 10 }, (_, i) => (

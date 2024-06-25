@@ -6,10 +6,10 @@ import "./watchlist.less";
 export default function WatchedList(
   props: MovieComponentProps<MovieDetailsProps>
 ): JSX.Element {
-  const { watched, handleRemoveMovie } = props;
+  const { watched, testId, handleRemoveMovie } = props;
 
   return (
-    <ul className="list list-watched" data-testid="watchedListId">
+    <ul className="list list-watched" data-testid={testId}>
       {watched!.map((movie) => (
         <Movie key={movie.imdbID} {...{ ...props, movie }}>
           <RatingAndDuration {...{ ...movie }} />

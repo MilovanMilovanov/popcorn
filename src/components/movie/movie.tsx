@@ -1,5 +1,4 @@
-import { RefObject } from "react";
-import { PropsWithOptionalChildren } from "../../interfaces/interfaces";
+import { ReactNode, RefObject } from "react";
 
 export interface MovieDetailsProps {
   Poster?: string;
@@ -17,17 +16,18 @@ export interface MovieDetailsProps {
   Genre?: string;
 }
 
-export interface MovieComponentProps<MovieProps = MovieDetailsProps>
-  extends PropsWithOptionalChildren {
+export interface MovieComponentProps<MovieProps = MovieDetailsProps> {
   movie?: MovieProps;
   movies?: MovieProps[];
   watched?: MovieProps[] | [];
   movieRef?: RefObject<HTMLUListElement>;
   selectedId?: string | null;
   isBoxOrderChanged?: boolean;
+  testId?: string;
   getFocusedElementIndex?: (ref: HTMLUListElement) => [HTMLElement[], number];
   handleSelectedId?: (id: string | null) => void;
   handleRemoveMovie?: (id: string | undefined) => void;
+  children?: ReactNode;
 }
 
 export default function Movie(
@@ -36,6 +36,7 @@ export default function Movie(
   const {
     movie,
     movieRef,
+    testId,
     handleSelectedId,
     getFocusedElementIndex,
     children,
@@ -54,7 +55,7 @@ export default function Movie(
     <li
       tabIndex={0}
       role="button"
-      data-testid={"movieId"}
+      data-testid={testId}
       onClick={() => {
         handleSelectedId?.(imdbID!);
         onBlur();

@@ -8,7 +8,7 @@ const average = (arr: number[]) =>
 export default function MovieSummary(
   props: MovieComponentProps<MovieDetailsProps>
 ): JSX.Element {
-  const { watched } = props;
+  const { watched, testId } = props;
 
   const imdbRating = average(
     watched!.map((movie) => Number(movie.imdbRating))
@@ -24,7 +24,7 @@ export default function MovieSummary(
   ).toFixed(1)} min`;
 
   return (
-    <div className="summary" data-testid="movieSummaryId">
+    <div className="summary" data-testid={testId}>
       <h2>Movies you watched</h2>
       <div>
         <p>

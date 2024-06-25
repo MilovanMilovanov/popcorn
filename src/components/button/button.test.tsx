@@ -1,8 +1,15 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, test, vi } from "vitest";
-import Button from "./Button";
+import Button, { BtnProps } from "./Button";
 
-const component = (props?: { [index: string]: string | boolean | Function }) =>
+const intialProps: BtnProps = {
+  testId: "btn-testId",
+  id: "1",
+  "aria-expanded": true,
+  onClick: vi.fn(),
+};
+
+const component = (props = intialProps) =>
   render(
     <Button {...props}>
       <p>Test Content</p>
@@ -12,12 +19,13 @@ const component = (props?: { [index: string]: string | boolean | Function }) =>
 describe("Button Rendering", () => {
   test("Should render children", () => {
     component();
+    const btn = screen.getByTestId(intialProps.testId!);
+    expect(btn).toBeInTheDocument();
     expect(screen.queryByText("Test Content")).toBeInTheDocument();
   });
 
   test("Check if buttons accepts and uses props correctly", () => {
-    const onClick = vi.fn();
-    const props = { "aria-expanded": true, className: "btn", onClick };
+    const props = { "aria-expanded": true, className: "btn" };
 
     component(props);
     const button = screen.getByTestId("btnId");
@@ -26,6 +34,6 @@ describe("Button Rendering", () => {
     expect(button).toHaveAttribute("aria-expanded", "true");
 
     fireEvent.click(button);
-    expect(onClick).toBeCalledTimes(1);
+    expect(intialProps.onClick).toBeCalledTimes(1);
   });
 });

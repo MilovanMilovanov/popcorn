@@ -1,17 +1,20 @@
+import { ReactNode } from "react";
 import "./logo.less";
 
-export default function Logo({
-  isMovieLoaded,
-}: {
+export interface LogoProps {
   isMovieLoaded?: boolean;
-}): JSX.Element {
+  children: ReactNode;
+  testId?: string;
+}
+
+export default function Logo(props: LogoProps) {
+  const { isMovieLoaded, testId, children } = props;
   return (
     <div
-      data-testid="logoId"
+      data-testid={testId}
       className={`logo ${isMovieLoaded ? "logo-highlight" : ""}`}
     >
-      <img src="src\assets\popcorn.jpg" alt="animated popcorn image" />
-      <h1>usePopcorn</h1>
+      {children}
     </div>
   );
 }

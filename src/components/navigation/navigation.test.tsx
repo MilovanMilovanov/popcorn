@@ -1,27 +1,32 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test, vi } from "vitest";
-import Navigation from "./Navigation";
-import Logo from "../logo/Logo";
+import Navigation, { NavigationProps } from "./Navigation";
 import Search from "../search/Search";
 
-const component = () => {
-  render(
-    <Navigation>
-      <Logo />
-      <Search query="" handleSearch={vi.fn()}></Search>
-    </Navigation>
-  );
+const props: NavigationProps = {
+  testId: "navigation-testId",
+  children: <span>Navigation content</span>,
 };
 
+const component = () => render(<Navigation />);
 describe("Navigation Redenring", () => {
-  test("Should render Navigation elements", () => {
+  beforeEach(() => {
     component();
-    expect(screen.getByTestId("navId")).toBeInTheDocument();
-    expect(screen.getByTestId("logoId")).toBeInTheDocument();
-    expect(screen.getByTestId("searchId")).toBeInTheDocument();
   });
+  test("Navigation component should be visible", () => {
+    const navigation = screen.getByTestId(props.testId!);
+    expect(navigation).toBeInTheDocument();
+    expect(navigation).toBeVisible();
+  });
+
   test("The Navigation should have a className attribute", () => {
-    component();
-    expect(screen.getByTestId("navId")).toHaveAttribute("class");
+    const navigation = screen.getByTestId(props.testId!);
+    expect(navigation).toHaveAttribute("class");
+  });
+
+  test("Navigation content should be visible", () => {
+    const navigation = screen.getByTestId(props.testId!);
+    expect(screen.queryByText("Navigation content")).toBeInTheDocument();
+    expect(navigation).toBeVisible();
   });
 });

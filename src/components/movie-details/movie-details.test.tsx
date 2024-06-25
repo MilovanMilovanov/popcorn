@@ -16,22 +16,23 @@ const props: DetailsProps = {
   selectedId: "tt1375666",
   handleCloseDetails: vi.fn(),
   handleUpdateWatchlist: vi.fn(),
+  testId: "details-testId",
 };
 
-const component = async (props: DetailsProps) => {
-  render(<MovieDetails {...props} />);
+const component = async (params = props as DetailsProps) => {
+  render(<MovieDetails {...params} />);
 };
 
 const waitForLoadingToDisappear = async () => {
   await waitFor(() =>
-    expect(screen.queryByText("Loading...")).not.toBeInTheDocument()
+    expect(screen.queryByText("Loading movies...")).not.toBeInTheDocument()
   );
 };
 
 describe("MovieDetails Redenring", () => {
   test("Should render movie details", async () => {
-    component(props);
-    const details = screen.getByTestId("detailsId");
+    component();
+    const details = screen.getByTestId(props.testId!);
     expect(details).toBeInTheDocument();
 
     await waitForLoadingToDisappear();

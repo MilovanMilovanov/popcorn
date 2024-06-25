@@ -1,10 +1,19 @@
+import { ReactNode } from "react";
 import "./generic-text.less";
 
-export default function GenericMessage(props: { text: string }): JSX.Element {
+export interface GenericMessageProps {
+  testId?: string;
+  children?: ReactNode;
+}
+
+export default function GenericMessage(
+  props: GenericMessageProps
+): JSX.Element {
+  const { testId, children } = props;
   return (
-    <p className="generic-message" data-testid="genericTextId">
+    <p className="generic-message" data-testid={testId}>
       <span>🙂</span>
-      {props.text}
+      {children}
     </p>
   );
 }

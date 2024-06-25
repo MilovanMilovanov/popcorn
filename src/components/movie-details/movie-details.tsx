@@ -13,6 +13,7 @@ export interface DetailsProps {
   selectedId: string;
   handleCloseDetails: () => void;
   handleUpdateWatchlist: (movie: MovieDetailsProps) => void;
+  testId?: string;
 }
 
 export default function MovieDetails(props: DetailsProps): JSX.Element {
@@ -20,8 +21,13 @@ export default function MovieDetails(props: DetailsProps): JSX.Element {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [userRating, setUserRating] = useState<number | null>(null);
 
-  const { selectedId, watched, handleUpdateWatchlist, handleCloseDetails } =
-    props;
+  const {
+    selectedId,
+    watched,
+    testId,
+    handleUpdateWatchlist,
+    handleCloseDetails,
+  } = props;
 
   const {
     Title,
@@ -76,9 +82,11 @@ export default function MovieDetails(props: DetailsProps): JSX.Element {
   useKey(handleCloseDetails);
 
   return (
-    <div className="details" data-testid="detailsId">
+    <div className="details" data-testid={testId}>
       {isLoading ? (
-        <Loading />
+        <Loading>
+          <span>Loading movies...</span>
+        </Loading>
       ) : (
         <>
           <header className="details-header">
