@@ -39,7 +39,7 @@ export default function Box(props: BoxProps) {
               {isOpen ? "–" : "+"}
             </Button>
           </div>
-          {isOpen && children}
+          {isOpen && <div className="box-body">{children}</div>}
         </section>
       )}
     </Draggable>

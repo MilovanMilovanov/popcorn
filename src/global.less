@@ -25,7 +25,7 @@ body {
   background: var(--color-background-700);
 }
   &-scrollbar-thumb {
-  border-radius: 0.9rem;
+  border-radius: 0.4rem;
   background: var(--color-primary);
 }
 }
@@ -54,14 +54,13 @@ body {
   gap: @gap;
 }
 
-.button_basics(@text-color, @bg-hover-color: lightgray, @opacity: 1) {
-  .flex_layout(unset, 0, center, center);
+.button_basics(@text-color, @bg-hover-color, @opacity: 1) {
   cursor: pointer;
   border: none;
   font-weight: bold;
   font-family: sans-serif;
   transition: all 0.3s;
-  
+  box-shadow: 0 0.2rem 0.3rem 0 var(--box-header-shadow);
 
   &:focus {
     outline: 0.2rem solid var(--btn-focus-color);
@@ -69,6 +68,7 @@ body {
 
   &:hover {
     opacity: @opacity;
-    background: if(@bg-hover-color, lightgray, @bg-hover-color );
+    color: @text-color;
+    background: @bg-hover-color;
   }
 };
