@@ -1,6 +1,6 @@
-import Button from "../button/button";
-import Movie, { MovieDetailsProps, MovieComponentProps } from "../movie/movie";
-import RatingAndDuration from "../rating-duration/rating-duration";
+import Button from "../button/Button";
+import Movie, { MovieDetailsProps, MovieComponentProps } from "../movie/Movie";
+import RatingAndDuration from "../rating-duration/Rating-duration";
 import "./watchlist.less";
 
 export default function WatchedList(

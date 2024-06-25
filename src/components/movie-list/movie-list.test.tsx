@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, test, vi } from "vitest";
-import MovieList from "./movie-list";
-import { MovieComponentProps, MovieDetailsProps } from "../movie/movie";
+import MovieList from "./Movie-list";
+import { MovieComponentProps, MovieDetailsProps } from "../movie/Movie";
 
 const props: MovieComponentProps<MovieDetailsProps> = {
   movies: [

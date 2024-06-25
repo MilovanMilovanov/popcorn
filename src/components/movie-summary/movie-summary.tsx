@@ -1,5 +1,5 @@
-import { MovieComponentProps, MovieDetailsProps } from "../movie/movie";
-import RatingAndDuration from "../rating-duration/rating-duration";
+import { MovieComponentProps, MovieDetailsProps } from "../movie/Movie";
+import RatingAndDuration from "../rating-duration/Rating-duration";
 import "./movie-summary.less";
 
 const average = (arr: number[]) =>

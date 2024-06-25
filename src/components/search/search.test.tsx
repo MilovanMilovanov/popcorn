@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test, vi } from "vitest";
-import Search, { SearchProps } from "./search";
-import NumResults from "../num-results/num-results";
+import Search, { SearchProps } from "./Search";
+import NumResults from "../num-results/Num-results";
 
 const props: SearchProps = {
   query: "test",

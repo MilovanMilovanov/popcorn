@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
-import RatingAndDuration from "./rating-duration";
-import { MovieDetailsProps } from "../movie/movie";
+import RatingAndDuration from "./Rating-duration";
+import { MovieDetailsProps } from "../movie/Movie";
 
 const movie: MovieDetailsProps = {
   Runtime: "111 min",

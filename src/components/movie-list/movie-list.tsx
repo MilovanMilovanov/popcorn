@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import Movie, { MovieComponentProps } from "../movie/movie";
+import Movie, { MovieComponentProps } from "../movie/Movie";
 import "./movie-list.less";
 import useKey, { handleKeyPress } from "../../hooks/useKey/useKey";
 

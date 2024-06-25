@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
-import NumResults from "./num-results";
+import NumResults from "./Num-results";
 
 const resultsLength = 7;
 

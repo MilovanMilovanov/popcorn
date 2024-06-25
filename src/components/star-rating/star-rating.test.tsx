@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
-import StarRating, { StarRatingProps } from "./star-rating";
+import StarRating, { StarRatingProps } from "./Star-rating";
 import Star from "./star/star";
 
 const props: StarRatingProps = {

@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, test, vi } from "vitest";
-import Button from "./button";
+import Button from "./Button";
 
 const component = (props?: { [index: string]: string | boolean | Function }) =>
   render(

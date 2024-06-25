@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
-import MovieSummary from "./movie-summary";
-import { MovieDetailsProps } from "../movie/movie";
+import MovieSummary from "./Movie-summary";
+import { MovieDetailsProps } from "../movie/Movie";
 
 const watched: MovieDetailsProps[] = [
   {

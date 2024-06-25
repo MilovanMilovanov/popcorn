@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test, vi } from "vitest";
-import Navigation from "./navigation";
-import Logo from "../logo/logo";
-import Search from "../search/search";
+import Navigation from "./Navigation";
+import Logo from "../logo/Logo";
+import Search from "../search/Search";
 
 const component = () => {
   render(

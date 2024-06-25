@@ -5,8 +5,8 @@ import {
   waitForElementToBeRemoved,
 } from "@testing-library/react";
 import { describe, expect, test, vi } from "vitest";
-import WatchedList from "./watchlist";
-import { MovieComponentProps, MovieDetailsProps } from "../movie/movie";
+import WatchedList from "./Watchlist";
+import { MovieComponentProps, MovieDetailsProps } from "../movie/Movie";
 
 const props: MovieComponentProps<MovieDetailsProps> = {
   watched: [

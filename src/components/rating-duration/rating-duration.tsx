@@ -1,4 +1,4 @@
-import { MovieDetailsProps } from "../movie/movie";
+import { MovieDetailsProps } from "../movie/Movie";
 import "./rating-duration.less";
 
 export default function RatingAndDuration(

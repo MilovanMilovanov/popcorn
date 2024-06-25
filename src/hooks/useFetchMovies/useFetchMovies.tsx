@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { MovieDetailsProps } from "../../components/movie/movie";
+import { MovieDetailsProps } from "../../components/movie/Movie";
 
 const API_KEY = "d74493d0";
 

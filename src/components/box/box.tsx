@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Button from "../button/button";
+import Button from "../button/Button";
 import { PropsWithOptionalChildren } from "../../interfaces/interfaces";
 import { Draggable } from "react-beautiful-dnd";
 import "./box.less";

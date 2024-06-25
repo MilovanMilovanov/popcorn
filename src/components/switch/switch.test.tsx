@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import Switch from "./switch";
+import Switch from "./Switch";
 
 const component = () => {
   render(<Switch />);

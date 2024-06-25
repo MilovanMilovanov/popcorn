@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, test, vi } from "vitest";
-import Movie, { MovieDetailsProps } from "./movie";
+import Movie, { MovieDetailsProps } from "./Movie";
 
 const movie: MovieDetailsProps = {
   imdbID: "tt1375666",

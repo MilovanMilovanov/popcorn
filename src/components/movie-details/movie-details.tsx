@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import useKey from "../../hooks/useKey/useKey";
-import Loading from "../loading/loading";
-import StarRating from "../star-rating/star-rating";
+import Loading from "../loading/Loading";
+import StarRating from "../star-rating/Star-rating";
 import "./movie-details.less";
-import Button from "../button/button";
-import { MovieDetailsProps } from "../movie/movie";
+import Button from "../button/Button";
+import { MovieDetailsProps } from "../movie/Movie";
 
 const API_KEY = "d74493d0";
 

@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
-import GenericText from "./generic-text";
+import GenericText from "./Generic-text";
 
 const component = () => render(<GenericText text="message" />);
 

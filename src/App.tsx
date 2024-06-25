@@ -1,22 +1,21 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import useFetchMovies from "./hooks/useFetchMovies/useFetchMovies";
 import useLocalStorage from "./hooks/useLocalStorage/useLocalStorage";
-import Box from "./components/box/box";
-import Loading from "./components/loading/loading";
-import Logo from "./components/logo/logo";
-import ErrorMessage from "./components/error/error";
-import GenericMessage from "./components/generic-text/generic-text";
-import MovieDetails from "./components/movie-details/movie-details";
-import MovieList from "./components/movie-list/movie-list";
-import MovieSummary from "./components/movie-summary/movie-summary";
-import Navigation from "./components/navigation/navigation";
-import NumResults from "./components/num-results/num-results";
-import Search from "./components/search/search";
-import WatchedList from "./components/watchlist/watchlist";
-import Main from "./components/main/main";
-import { MovieDetailsProps } from "./components/movie/movie";
-import Switch from "./components/switch/switch";
+import Box from "./components/box/Box";
+import Loading from "./components/loading/Loading";
+import Logo from "./components/logo/Logo";
+import ErrorMessage from "./components/error/Error";
+import GenericMessage from "./components/generic-text/Generic-text";
+import MovieDetails from "./components/movie-details/Movie-details";
+import MovieList from "./components/movie-list/Movie-list";
+import MovieSummary from "./components/movie-summary/Movie-summary";
+import Navigation from "./components/navigation/Navigation";
+import NumResults from "./components/num-results/Num-results";
+import Search from "./components/search/Search";
+import WatchedList from "./components/watchlist/Watchlist";
+import Main from "./components/main/Main";
+import { MovieDetailsProps } from "./components/movie/Movie";
+import Switch from "./components/switch/Switch";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 
 export default function App() {

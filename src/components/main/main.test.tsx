@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
-import Main from "./main";
+import Main from "./Main";
 import Box from "../box/box";
 
 describe("Main Rendering", () => {
