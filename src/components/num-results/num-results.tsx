@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import "./num-results.less";
 
 export interface NumResultsProps {
@@ -5,10 +6,22 @@ export interface NumResultsProps {
   testId?: string;
 }
 export default function NumResults(props: NumResultsProps) {
+  const ref = useRef<HTMLSpanElement>(null);
   const { numberOfResults, testId } = props;
+
+  useEffect(() => {
+    if (ref.current) {
+      numberOfResults === 0
+        ? (ref.current.style.animationPlayState = "paused")
+        : (ref.current.style.animationPlayState = "running");
+    }
+  }, [numberOfResults]);
+
   return (
-    <p className="num-results" data-testid={testId}>
-      Found <strong>{numberOfResults}</strong> results
-    </p>
+    <div className="num-results-container">
+      <span ref={ref} className="num-results animate" data-testid={testId}>
+        Found <strong>{numberOfResults}</strong> results
+      </span>
+    </div>
   );
 }
