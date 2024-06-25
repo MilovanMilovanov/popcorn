@@ -33,7 +33,7 @@ body {
 
 .shine_image_hover_effect(@gradient-direction: 0, @transition-speed: 0.4s) {
   transform: perspective(400px) rotate3d(var(--r,1,-1),0,calc(var(--i,1)*var(--a)));
-  -webkit-mask: 
+  mask: 
     linear-gradient(135deg,#000c 40%,#000,#000c 60%)
     100% 100%/250% 250%;
   transition: @transition-speed;
@@ -41,7 +41,7 @@ body {
 
   &:hover {
     -i: -1;
-   -webkit-mask-position: @gradient-direction 0;
+   mask-position: @gradient-direction 0;
   }
 }
 
