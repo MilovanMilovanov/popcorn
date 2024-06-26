@@ -13,7 +13,7 @@ export default function Main(props: MainProps) {
     <StrictModeDroppable droppableId="main-content">
       {(provided, snapshot) => (
         <main
-          date-testid={testId}
+          data-testid={testId}
           className="main"
           style={{
             background: snapshot.isDraggingOver ? "rgba(90, 67, 48, 0.4)" : "",

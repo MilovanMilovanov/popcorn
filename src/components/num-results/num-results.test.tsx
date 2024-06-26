@@ -14,7 +14,8 @@ const component = () => {
 describe("NumResults Redenring", () => {
   test("Should render the length of search result", () => {
     component();
-    expect(screen.getByTestId(props.testId!)).toBeInTheDocument();
-    expect(screen.queryByText(props.numberOfResults)).toBeInTheDocument();
+    const wrapper = screen.getByTestId(props.testId!);
+    expect(wrapper).toBeInTheDocument();
+    expect(wrapper).toHaveTextContent(props.numberOfResults.toFixed());
   });
 });

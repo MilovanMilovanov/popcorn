@@ -7,7 +7,7 @@ const props: NavigationProps = {
   children: <span>Navigation content</span>,
 };
 
-const component = () => render(<Navigation />);
+const component = () => render(<Navigation {...props} />);
 describe("Navigation Redenring", () => {
   beforeEach(() => {
     component();

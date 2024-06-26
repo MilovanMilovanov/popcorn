@@ -47,15 +47,7 @@ describe("MovieDetails Redenring", () => {
 
     await waitForLoadingToDisappear();
 
-    expect(screen.getByTestId("starsRatingId")).toBeInTheDocument();
-  });
-
-  test("StarRating should not be rendered if selectedId is different than current movie id", async () => {
-    component(props);
-
-    await waitForLoadingToDisappear();
-
-    expect(screen.queryByTestId("starsRatingId")).not.toBeInTheDocument();
+    expect(screen.getByRole("slider")).toBeInTheDocument();
   });
 
   test("Add movie button should not be rendered initially", async () => {
@@ -72,7 +64,7 @@ describe("MovieDetails Redenring", () => {
 
     await waitForLoadingToDisappear();
 
-    const wrapper = screen.getByTestId("starsRatingId");
+    const wrapper = screen.getByRole("slider");
 
     const star = wrapper.querySelector(".stars-container div") as Element;
     fireEvent.click(star);

@@ -103,7 +103,12 @@ export default function MovieList(props: MovieComponentProps): JSX.Element {
       {movies?.map((movie) => (
         <Movie
           key={movie.imdbID}
-          {...{ ...props, movie, getFocusedElementIndex, movieRef }}
+          {...{
+            ...{ ...props, testId: undefined },
+            movie,
+            getFocusedElementIndex,
+            movieRef,
+          }}
         >
           <div>
             <p>

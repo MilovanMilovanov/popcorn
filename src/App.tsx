@@ -4,7 +4,7 @@ import useLocalStorage from "./hooks/useLocalStorage/useLocalStorage";
 import Box from "./components/box/Box";
 import Logo from "./components/logo/Logo";
 import ErrorMessage from "./components/error/Error";
-import GenericMessage from "./components/generic-text/Generic-text";
+import PromptMessage from "./components/prompt-message/Prompt-message";
 import MovieDetails from "./components/movie-details/Movie-details";
 import MovieList from "./components/movie-list/Movie-list";
 import MovieSummary from "./components/movie-summary/Movie-summary";
@@ -69,9 +69,9 @@ export default function App() {
       content: (index: number) => (
         <Box id="movieList" key="movieList" index={index}>
           {query.length < 3 && (
-            <GenericMessage>
+            <PromptMessage>
               <span>Enter a movie title</span>
-            </GenericMessage>
+            </PromptMessage>
           )}
           {isLoading && (
             <Loader>

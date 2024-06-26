@@ -8,16 +8,16 @@ const component = () => {
 };
 
 describe("Switch Component", () => {
-  test("renders the switch component", () => {
+  beforeEach(() => {
     component();
+  });
 
+  test("renders the switch component", () => {
     const themeToggler = screen.getByTestId(testId);
     expect(themeToggler).toBeInTheDocument();
   });
 
   test("aria attributes are set correctly", () => {
-    component();
-
     const themeToggler = screen.getByTestId(testId);
     expect(themeToggler).toHaveAttribute("aria-checked", "true");
     expect(themeToggler).toHaveAttribute("aria-label", "Toggle theme");

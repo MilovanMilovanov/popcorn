@@ -2,38 +2,46 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, test, vi } from "vitest";
 import Button, { BtnProps } from "./Button";
 
-const intialProps: BtnProps = {
+const props: BtnProps = {
   testId: "btn-testId",
   id: "1",
+  className: "btn2",
   "aria-expanded": true,
   onClick: vi.fn(),
 };
 
-const component = (props = intialProps) =>
+const component = (params = props) =>
   render(
-    <Button {...props}>
-      <p>Test Content</p>
+    <Button {...params}>
+      <p>Button Content</p>
     </Button>
   );
 
 describe("Button Rendering", () => {
-  test("Should render children", () => {
+  test("Button should be vissible", () => {
     component();
-    const btn = screen.getByTestId(intialProps.testId!);
-    expect(btn).toBeInTheDocument();
-    expect(screen.queryByText("Test Content")).toBeInTheDocument();
+    expect(screen.getByTestId(props.testId!)).toBeVisible();
   });
 
-  test("Check if buttons accepts and uses props correctly", () => {
-    const props = { "aria-expanded": true, className: "btn" };
+  test("Should render children", () => {
+    component();
+    const btn = screen.getByTestId(props.testId!);
+    expect(btn).toBeInTheDocument();
+    expect(screen.queryByText("Button Content")).toBeInTheDocument();
+  });
 
-    component(props);
-    const button = screen.getByTestId("btnId");
+  test("Check if button has correct props", () => {
+    component({
+      ...props,
+      "aria-expanded": true,
+      className: props.className,
+    });
+    const button = screen.getByTestId(props.testId!);
 
-    expect(button).toHaveClass("btn");
+    expect(button).toHaveClass(props.className!);
     expect(button).toHaveAttribute("aria-expanded", "true");
 
     fireEvent.click(button);
-    expect(intialProps.onClick).toBeCalledTimes(1);
+    expect(props.onClick).toBeCalledTimes(1);
   });
 });

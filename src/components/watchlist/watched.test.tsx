@@ -24,16 +24,19 @@ const props: MovieComponentProps<MovieDetailsProps> = {
   handleRemoveMovie: vi.fn(),
 };
 
-const component = (props: MovieComponentProps<MovieDetailsProps>) => {
-  render(<WatchedList {...props} />);
+const component = (
+  params = props as MovieComponentProps<MovieDetailsProps>
+) => {
+  render(<WatchedList {...params} />);
 };
 
 const { Title, userRating, imdbRating, Runtime } = props.watched!.at(0)!;
 
 describe("WatchedList Redenring", () => {
+  beforeEach(() => {
+    component();
+  });
   test("Should render wathclist props", () => {
-    component(props);
-
     expect(screen.getByTestId(props.testId!)).toBeInTheDocument();
     expect(screen.queryByText(Title!)).toBeInTheDocument();
     expect(screen.queryByText(imdbRating!)).toBeInTheDocument();
@@ -46,8 +49,6 @@ describe("WatchedList Redenring", () => {
   });
 
   test("handleRemoveMovie should be called once", async () => {
-    component(props);
-
     const deleteBtn = document.querySelector(".btn-delete") as Element;
 
     fireEvent.click(deleteBtn);
@@ -55,8 +56,6 @@ describe("WatchedList Redenring", () => {
   });
 
   test("Movie should be removed from WatchedList", () => {
-    component(props);
-
     const deleteBtn = document.querySelector(".btn-delete") as Element;
     fireEvent.click(deleteBtn);
     expect(props.handleRemoveMovie).toHaveBeenCalledWith(props.selectedId);

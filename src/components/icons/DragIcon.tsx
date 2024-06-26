@@ -1,8 +1,13 @@
 import { useState } from "react";
 import "./drag-icon.less";
 
-export default function DragIcon() {
+export interface DragIconProps {
+  testId?: string;
+}
+
+export default function DragIcon(props: DragIconProps) {
   const [isHovered, setIsHovered] = useState<boolean>(false);
+  const { testId } = props;
 
   const bgColor = isHovered
     ? "var(--color-background-100)"
@@ -10,6 +15,7 @@ export default function DragIcon() {
 
   return (
     <svg
+      data-testid={testId}
       className="dragIcon"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"

@@ -10,6 +10,10 @@ const props: ErrorProps = {
 const component = () => render(<ErrorMessage {...props} />);
 
 describe("ErrorMessage Redenring", () => {
+  test("Error component should be rendered", () => {
+    component();
+    expect(screen.getByTestId(props.testId!)).toBeInTheDocument();
+  });
   test("Should render error message", () => {
     component();
     const wrapper = screen.getByTestId(props.testId!);

@@ -47,7 +47,7 @@ export default function Movie(
   function onBlur() {
     if (movieRef?.current && getFocusedElementIndex) {
       const [list, focusedIndex] = getFocusedElementIndex(movieRef.current);
-      list[focusedIndex].blur();
+      list[focusedIndex]?.blur();
     }
   }
 

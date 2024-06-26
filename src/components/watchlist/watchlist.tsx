@@ -11,7 +11,10 @@ export default function WatchedList(
   return (
     <ul className="list list-watched" data-testid={testId}>
       {watched!.map((movie) => (
-        <Movie key={movie.imdbID} {...{ ...props, movie }}>
+        <Movie
+          key={movie.imdbID}
+          {...{ ...{ ...props, testId: undefined }, movie }}
+        >
           <RatingAndDuration {...{ ...movie }} />
           <Button
             className={"btn-delete"}

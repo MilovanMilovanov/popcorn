@@ -63,6 +63,7 @@ export default function StarRating(props: StarRatingProps): JSX.Element {
       className={`rating-position ${ratingPosition}`}
       style={ratingStyles}
       data-testid={testId}
+      role="slider"
     >
       <div className="stars-container">
         {Array.from({ length: maxRating ?? 10 }, (_, i) => (
