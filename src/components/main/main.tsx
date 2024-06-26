@@ -10,7 +10,7 @@ export interface MainProps {
 export default function Main(props: MainProps) {
   const { testId, children } = props;
   return (
-    <StrictModeDroppable droppableId="main-content">
+    <StrictModeDroppable droppableId="main-content" direction="horizontal">
       {(provided, snapshot) => (
         <main
           data-testid={testId}

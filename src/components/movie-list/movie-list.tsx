@@ -38,6 +38,8 @@ const keyHandlers: KeyHandlersProps = {
   },
 
   ArrowLeft: (params: MovieComponentProps) => {
+    console.log(params.isBoxOrderChanged);
+
     params.isBoxOrderChanged
       ? arrowLeftAndRightKeyHandlers.arrowRight(params)
       : arrowLeftAndRightKeyHandlers.arrowLeft(params);

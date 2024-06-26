@@ -18,13 +18,28 @@ import Switch from "./components/switch/Switch";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import Loader from "./components/loading/Loading";
 
+const reorder = (
+  list: { id: string }[],
+  startIndex: number,
+  endIndex: number
+) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result;
+};
+
 export default function App() {
   const [query, setQuery] = useState<string>("");
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const { movies, isLoading, error } = useFetchMovies(query);
   const [watched, setWatched] = useLocalStorage<[]>([], "watched");
   const [isBoxOrderChanged, setIsBoxOrderChanged] = useState<boolean>(false);
-
+  const [boxOrder, setBoxOrder] = useState([
+    { id: "movieList" },
+    { id: "watchlist" },
+  ]);
   const handleSelectedId = useCallback(
     (id: string | null) => {
       setSelectedId(selectedId === id ? null : id);
@@ -53,9 +68,15 @@ export default function App() {
   };
 
   const handleDragEnd = (result: DropResult) => {
-    const dest = result.destination;
-    if (!dest) return;
+    const { source, destination } = result;
 
+    if (!destination || source.index === destination.index) {
+      return;
+    }
+
+    const newState = reorder(boxOrder, source.index, destination.index);
+
+    setBoxOrder(newState);
     setIsBoxOrderChanged((prev) => !prev);
   };
 
@@ -63,71 +84,69 @@ export default function App() {
     handleCloseDetails();
   }, [movies, handleCloseDetails]);
 
-  const boxOrder = [
-    {
-      id: "movieList",
-      content: (index: number) => (
-        <Box id="movieList" key="movieList" index={index}>
-          {query.length < 3 && (
-            <PromptMessage>
-              <span>Enter a movie title</span>
-            </PromptMessage>
-          )}
-          {isLoading && (
-            <Loader>
-              <span>Loading movies...</span>
-            </Loader>
-          )}
-          {!isLoading && !error && (
-            <MovieList
-              {...{ movies, selectedId, handleSelectedId, isBoxOrderChanged }}
-            />
-          )}
-          {error && <ErrorMessage error={error} />}
-        </Box>
-      ),
-    },
-    {
-      id: "watchlist",
-      content: (index: number) => (
-        <Box id="watchlist" key="watchlist" index={index}>
-          {selectedId ? (
-            <MovieDetails
-              {...{
-                watched,
-                selectedId,
-                handleUpdateWatchlist,
-                handleCloseDetails,
-              }}
-            />
-          ) : (
-            <>
-              <MovieSummary watched={watched} />
-              <WatchedList {...{ watched, handleRemoveMovie }} />
-            </>
-          )}
-        </Box>
-      ),
-    },
-  ];
-
   return (
     <>
+      <Navigation>
+        <Logo isMovieLoaded={Boolean(movies.length)}>
+          <img src="src\assets\popcorn.jpg" alt="animated popcorn image" />
+          <h1>usePopcorn</h1>
+        </Logo>
+        <Search {...{ query, handleSearch }}>
+          <NumResults numberOfResults={movies.length} />
+        </Search>
+        <Switch />
+      </Navigation>
       <DragDropContext onDragEnd={handleDragEnd}>
-        <Navigation>
-          <Logo isMovieLoaded={Boolean(movies.length)}>
-            <img src="src\assets\popcorn.jpg" alt="animated popcorn image" />
-            <h1>usePopcorn</h1>
-          </Logo>
-          <Search {...{ query, handleSearch }}>
-            <NumResults numberOfResults={movies.length} />
-          </Search>
-          <Switch />
-        </Navigation>
         <Main>
-          {(isBoxOrderChanged ? boxOrder.reverse() : boxOrder).map(
-            (box, index) => box.content(index)
-          )}
+          {boxOrder.map((data, index) => {
+            if (data.id === "movieList") {
+              return (
+                <Box key={data.id} id={data.id} index={index}>
+                  {query.length < 3 && (
+                    <PromptMessage>
+                      <span>Enter a movie title</span>
+                    </PromptMessage>
+                  )}
+                  {isLoading && (
+                    <Loader>
+                      <span>Loading movies...</span>
+                    </Loader>
+                  )}
+                  {!isLoading && !error && (
+                    <MovieList
+                      {...{
+                        movies,
+                        selectedId,
+                        handleSelectedId,
+                        isBoxOrderChanged,
+                      }}
+                    />
+                  )}
+                  {error && <ErrorMessage error={error} />}
+                </Box>
+              );
+            } else {
+              return (
+                <Box key={data.id} id={data.id} index={index}>
+                  {selectedId ? (
+                    <MovieDetails
+                      {...{
+                        watched,
+                        selectedId,
+                        handleUpdateWatchlist,
+                        handleCloseDetails,
+                      }}
+                    />
+                  ) : (
+                    <>
+                      <MovieSummary watched={watched} />
+                      <WatchedList {...{ watched, handleRemoveMovie }} />
+                    </>
+                  )}
+                </Box>
+              );
+            }
+          })}
         </Main>
       </DragDropContext>
     </>
