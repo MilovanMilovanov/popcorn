@@ -1,5 +1,5 @@
 import { CSSProperties, useState } from "react";
-import Star from "./star/star";
+import Star from "./star/Star";
 import "./star-rating.less";
 import { handleConvertColor } from "../utils/color-utils";
 import Color from "color";

@@ -2,7 +2,7 @@ import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import useFetchMovies from "./hooks/useFetchMovies/useFetchMovies";
 import useLocalStorage from "./hooks/useLocalStorage/useLocalStorage";
 import Box from "./components/box/Box";
-import Logo from "./components/logo/Logo";
+import Logo from "./components/logo/logo";
 import ErrorMessage from "./components/error/Error";
 import PromptMessage from "./components/prompt-message/Prompt-message";
 import MovieDetails from "./components/movie-details/Movie-details";
@@ -16,7 +16,7 @@ import Main from "./components/main/Main";
 import { MovieDetailsProps } from "./components/movie/Movie";
 import Switch from "./components/switch/Switch";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
-import Loader from "./components/loading/Loading";
+import Loader from "./components/loader/Loader";
 
 const reorder = (
   list: { id: string }[],

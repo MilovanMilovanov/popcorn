@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import useKey from "../../hooks/useKey/useKey";
-import Loading from "../loading/Loading";
+import Loading from "../loader/Loader";
 import StarRating from "../star-rating/Star-rating";
 import "./movie-details.less";
 import Button from "../button/Button";
