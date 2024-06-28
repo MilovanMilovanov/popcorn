@@ -2,7 +2,7 @@ import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import useFetchMovies from "./hooks/useFetchMovies/useFetchMovies";
 import useLocalStorage from "./hooks/useLocalStorage/useLocalStorage";
 import Box from "./components/box/Box";
-import Logo from "./components/logo/logo";
+import Logo from "./components/logo/Logo";
 import ErrorMessage from "./components/error/Error";
 import PromptMessage from "./components/prompt-message/Prompt-message";
 import MovieDetails from "./components/movie-details/Movie-details";
