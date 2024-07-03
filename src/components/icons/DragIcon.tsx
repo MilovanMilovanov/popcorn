@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./drag-icon.less";
+import styles from "./drag-icon.module.less";
 
 export interface DragIconProps {
   testId?: string;
@@ -16,7 +16,7 @@ export default function DragIcon(props: DragIconProps) {
   return (
     <svg
       data-testid={testId}
-      className="dragIcon"
+      className={styles.dragIcon}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       id="drag-indicator"

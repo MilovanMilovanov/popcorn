@@ -1,4 +1,4 @@
-import "./error.less";
+import styles from "./error.module.less";
 
 export interface ErrorProps {
   error: string;
@@ -7,7 +7,7 @@ export interface ErrorProps {
 export default function ErrorMessage(props: ErrorProps) {
   const { error, testId } = props;
   return (
-    <p data-testid={testId} className="error">
+    <p data-testid={testId} className={styles.error}>
       <span>❌</span>
       {error}
     </p>

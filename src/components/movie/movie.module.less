@@ -1,0 +1,54 @@
+@import "../../global.less";
+
+.movie-container {
+    position: relative;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 4rem 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 3.4rem;
+    padding: 1rem;
+    font-size: 1.6rem;
+    border-bottom: 0.1rem solid var(--color-background-100);
+    cursor: pointer;
+    transition: ease-in-out 0.3s;
+    
+    &:hover {
+        background: var(--color-background-100);
+        .poster-img {
+          filter: brightness(125%);
+          mask-position: 0 0;
+        }
+    }
+  
+    &:focus {
+        outline: 0.2rem solid var(--btn-focus-color);
+    }
+  
+  .poster-img {
+    width: 7rem;
+    grid-row: 1 / -1;
+    filter: brightness(95%);
+    .img_hover_effect(100%);
+  }
+
+  .movie-title {
+    padding-left: 0.7rem;
+    font-size: 1.8rem;
+  }
+
+  }
+  
+
+  
+@media only screen and (max-width: 768px) {
+    .movie-container {
+      padding: 1.3rem 0;
+      column-gap: 4.6rem;
+
+      .poster-img {
+        width: 8rem;
+      }
+    }
+  }
+  

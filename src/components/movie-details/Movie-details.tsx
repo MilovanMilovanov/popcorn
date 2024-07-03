@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import useKey from "../../hooks/useKey/useKey";
 import Loading from "../loader/Loader";
 import StarRating from "../star-rating/Star-rating";
-import "./movie-details.less";
 import Button from "../button/Button";
 import { MovieDetailsProps } from "../movie/Movie";
+import styles from "./movie-details.module.less";
 
 const API_KEY = "d74493d0";
 
@@ -82,43 +82,38 @@ export default function MovieDetails(props: DetailsProps): JSX.Element {
   useKey(handleCloseDetails);
 
   return (
-    <div className="details" data-testid={testId}>
+    <div className={styles.details} data-testid={testId}>
       {isLoading ? (
         <Loading>
           <span>Loading movies...</span>
         </Loading>
       ) : (
         <>
-          <header className="details-header">
-            <Button className={"btn-back"} onClick={handleCloseDetails}>
+          <header className={styles.header}>
+            <Button className={styles["btn-back"]} onClick={handleCloseDetails}>
               &larr;
             </Button>
             <img
-              className="poster-img"
+              className={styles["poster-img"]}
               src={Poster}
               alt={`Poster of ${movie} movie`}
             />
-            <div className="details-overview">
-              <h2 className="movie-title">{Title}</h2>
+            <div className={styles.overview}>
+              <h2 className={styles["movie-title"]}>{Title}</h2>
               <p>
                 {Released} &bull; {Runtime}
               </p>
               <p>{Genre}</p>
-              <p>
-                <span>⭐</span>
-                {imdbRating} IMDb rating
-              </p>
+              <p>⭐{imdbRating} IMDb rating</p>
             </div>
           </header>
 
-          <section className="details-body">
-            <div className="rating">
+          <section className={styles.body}>
+            <div className={styles.rating}>
               {isMovieInWatchlist ? (
-                <p>
+                <p className={styles["user-rating"]}>
                   <span>🌟</span>
-                  <span>
-                    {isMovieInWatchlist.userRating} Your rating for this movie
-                  </span>
+                  {isMovieInWatchlist.userRating} Your rating for this movie
                 </p>
               ) : (
                 <StarRating
@@ -130,7 +125,7 @@ export default function MovieDetails(props: DetailsProps): JSX.Element {
                 />
               )}
               {userRating && (
-                <Button className={"btn-add"} onClick={updateWatchlist}>
+                <Button className={styles["btn-add"]} onClick={updateWatchlist}>
                   <span>+ Add to List</span>
                 </Button>
               )}

@@ -1,7 +1,8 @@
 import { useRef } from "react";
-import Movie, { MovieComponentProps } from "../movie/Movie";
-import "./movie-list.less";
 import useKey, { handleKeyPress } from "../../hooks/useKey/useKey";
+import Movie, { MovieComponentProps } from "../movie/Movie";
+import styles from "./movie-list.module.less";
+import MovieStatistics from "../movie-statistics/Movie-statistics";
 
 const getFocusedElementIndex = (ref: HTMLElement): [HTMLElement[], number] => {
   const list = Array.from(ref.querySelectorAll("li"));
@@ -101,23 +102,24 @@ export default function MovieList(props: MovieComponentProps): JSX.Element {
   });
 
   return (
-    <ul ref={movieRef} className="list list-movies" data-testid={testId}>
+    <ul ref={movieRef} className={styles["movie-list"]} data-testid={testId}>
       {movies?.map((movie) => (
         <Movie
           key={movie.imdbID}
           {...{
-            ...{ ...props, testId: undefined },
+            ...props,
+            testId: undefined,
             movie,
             getFocusedElementIndex,
             movieRef,
           }}
         >
-          <div>
-            <p>
-              <span>🗓</span>
-              <span>{movie.Year}</span>
-            </p>
-          </div>
+          {/* <div className={styles["movie-year"]}>
+            <span>🗓</span>
+            <span>{movie.Year}</span>
+          </div> */}
+
+          <MovieStatistics statistics={{ year: movie.Year }} />
         </Movie>
       ))}
     </ul>

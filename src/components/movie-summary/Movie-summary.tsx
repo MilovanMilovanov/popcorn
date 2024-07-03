@@ -1,6 +1,8 @@
 import { MovieComponentProps, MovieDetailsProps } from "../movie/Movie";
-import RatingAndDuration from "../rating-duration/Rating-duration";
-import "./movie-summary.less";
+import MovieStatistics, {
+  StatisticProps,
+} from "../movie-statistics/Movie-statistics";
+import styles from "./movie-summary.module.less";
 
 const average = (arr: number[]) =>
   arr.reduce((acc, cur) => acc + cur / arr.length, 0);
@@ -22,16 +24,20 @@ export default function MovieSummary(
       return isNaN(duration) ? 0 : duration;
     })
   ).toFixed(1)} min`;
+  ``;
+
+  const statistics: StatisticProps = {
+    watchedMoviesNumber: `${watched?.length} movies`,
+    imdbRating,
+    userRating,
+    runtime: Runtime,
+  };
 
   return (
-    <div className="summary" data-testid={testId}>
-      <h2>Movies you watched</h2>
-      <div>
-        <p>
-          <span>#️⃣</span>
-          <span>{watched?.length} movies</span>
-        </p>
-        <RatingAndDuration {...{ imdbRating, userRating, Runtime }} />
+    <div className={styles["movie-summary"]} data-testid={testId}>
+      <h2 className={styles.title}>Movies you watched</h2>
+      <div className={styles.statistics}>
+        <MovieStatistics statistics={statistics} />
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import useFetchMovies from "./hooks/useFetchMovies/useFetchMovies";
 import useLocalStorage from "./hooks/useLocalStorage/useLocalStorage";
-import Box from "./components/box/Box";
+import Box from "./components/MovieContainer/MovieContainer";
 import Logo from "./components/logo/Logo";
 import ErrorMessage from "./components/error/Error";
 import PromptMessage from "./components/prompt-message/Prompt-message";
@@ -11,8 +11,8 @@ import MovieSummary from "./components/movie-summary/Movie-summary";
 import Navigation from "./components/navigation/Navigation";
 import NumResults from "./components/num-results/Num-results";
 import Search from "./components/search/Search";
-import WatchedList from "./components/watchlist/Watchlist";
-import Main from "./components/main/Main";
+import WatchedList from "./components/watched-list/Watched-list";
+import MainContent from "./components/main-content/MainContent";
 import { MovieDetailsProps } from "./components/movie/Movie";
 import Switch from "./components/switch/Switch";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
@@ -87,17 +87,14 @@ export default function App() {
   return (
     <>
       <Navigation>
-        <Logo isMovieLoaded={Boolean(movies.length)}>
-          <img src="src\assets\popcorn.jpg" alt="animated popcorn image" />
-          <h1>usePopcorn</h1>
-        </Logo>
+        <Logo isMovieLoaded={Boolean(movies.length)} />
         <Search {...{ query, handleSearch }}>
           <NumResults numberOfResults={movies.length} />
         </Search>
         <Switch />
       </Navigation>
       <DragDropContext onDragEnd={handleDragEnd}>
-        <Main>
+        <MainContent>
           {boxOrder.map((data, index) => {
             if (data.id === "movieList") {
               return (
@@ -147,7 +144,7 @@ export default function App() {
               );
             }
           })}
-        </Main>
+        </MainContent>
       </DragDropContext>
     </>
   );

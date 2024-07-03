@@ -1,4 +1,5 @@
 import { ReactNode, RefObject } from "react";
+import styles from "./movie.module.less";
 
 export interface MovieDetailsProps {
   Poster?: string;
@@ -53,6 +54,7 @@ export default function Movie(
 
   return (
     <li
+      className={styles["movie-container"]}
       tabIndex={0}
       role="button"
       data-testid={testId}
@@ -62,8 +64,12 @@ export default function Movie(
       }}
       onBlur={onBlur}
     >
-      <img className="poster-img" src={Poster} alt={`${Title} poster`} />
-      <h3 className="movie-title">{Title}</h3>
+      <img
+        className={styles["poster-img"]}
+        src={Poster}
+        alt={`${Title} poster`}
+      />
+      <h3 className={styles["movie-title"]}>{Title}</h3>
       {children}
     </li>
   );
