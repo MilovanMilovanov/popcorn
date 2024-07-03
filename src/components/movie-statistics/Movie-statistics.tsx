@@ -41,21 +41,4 @@ export default function MovieStatistics(props: MovieStatisticsProps) {
       ))}
     </section>
   );
-
-  // return (
-  //   <section className={styles["movie-statistics"]} data-testid={testId}>
-  //     <p>
-  //       <span className={styles.icon}>⭐️</span>
-  //       <span>{imdbRating}</span>
-  //     </p>
-  //     <p>
-  //       <span className={styles.icon}>🌟</span>
-  //       <span>{userRating}</span>
-  //     </p>
-  //     <p>
-  //       <span className={styles.icon}>⏳</span>
-  //       <span>{Runtime}</span>
-  //     </p>
-  //   </section>
-  // );
 }
