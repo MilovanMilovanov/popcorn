@@ -29,7 +29,7 @@ export default function MovieContainer(props: MovieContainerProps) {
           className={styles["movie-container"]}
           data-testid={testId}
         >
-          <div className={styles["movie-container__header"]}>
+          <div className={styles.header}>
             <DragIcon />
             <Button
               className={styles["btn-toggle"]}
@@ -39,9 +39,7 @@ export default function MovieContainer(props: MovieContainerProps) {
               {isOpen ? "–" : "+"}
             </Button>
           </div>
-          {isOpen && (
-            <div className={styles["movie-container__body"]}>{children}</div>
-          )}
+          {isOpen && <div className={styles.body}>{children}</div>}
         </section>
       )}
     </Draggable>

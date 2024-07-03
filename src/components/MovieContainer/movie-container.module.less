@@ -7,7 +7,7 @@
     background-color: var(--color-background-500);
     border-radius: 0.9rem;
     
-    &__header {
+    .header {
       .flex_layout(@align: center);
       position: relative;
       cursor: default;
@@ -27,10 +27,11 @@
         background: var(--color-background-900);
         font-size: 1.4rem;
         z-index: 999;
+        .button_basics(var(--color-text), var(--color-primary))
       }
     }
 
-    &__body {
+    .body {
       overflow-y: scroll;
       width: 100%;
       height: 100%;

@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import styles from "./button.module.less";
 
 export interface BtnProps {
   className?: string;
@@ -15,7 +14,7 @@ export default function Button(props: BtnProps): JSX.Element {
 
   return (
     <button
-      className={`${styles.btn} ${className}`}
+      className={className}
       onClick={() => onClick?.()}
       data-testid={testId}
       {...attributes}
