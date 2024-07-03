@@ -16,9 +16,9 @@ export default function WatchedList(
         const { Runtime, userRating, imdbRating } = movie;
 
         const statistics = {
-          runtime: Runtime,
-          userRating,
           imdbRating,
+          userRating,
+          runtime: Runtime,
         } as StatisticProps;
 
         return (
