@@ -1,39 +1,41 @@
 @import "../../global.less"; 
 
 .movie-container {
-    overflow: hidden;
-    transition: ease-in-out 0.2s;
+    position: relative;
+    padding-top: 4rem;
+    transition: ease-in-out 0.3s;
     width: 100%;
-    background-color: var(--color-background-500);
+    min-width: 20rem;
     border-radius: 0.9rem;
+    background-color: var(--color-background-500);
     
     .header {
-      .flex_layout(@align: center);
-      position: relative;
-      cursor: default;
-      height: 4rem;
+      .flex_layout(@align: center, @justify: space-between);
+      position: absolute;
+      z-index: 1;
+      top: 0;
       padding: 0 0.5rem;
+      width: 100%;
+      height: 4rem;
+      border-radius: 0.9rem 0.9rem 0 0 ;
       background: var(--box-header-bg-color);
       box-shadow: 0 2px 5px 0 var(--box-header-shadow);
+      cursor: default;
       
       .btn-toggle {
-        position: absolute;
-        top: 0.5rem;
-        right: 0.8rem;
+        width: 2.7rem;
         height: 2.7rem;
-        aspect-ratio: 1;
         border-radius: 50%;
+        font-size: 1.4rem;
         color: var(--color-text);
         background: var(--color-background-900);
-        font-size: 1.4rem;
-        z-index: 999;
         .button_basics(var(--color-text), var(--color-primary))
       }
     }
 
     .body {
       overflow-y: scroll;
-      width: 100%;
+      overflow-x: hidden;
       height: 100%;
     }
   }

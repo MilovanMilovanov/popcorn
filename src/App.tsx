@@ -8,7 +8,7 @@ import PromptMessage from "./components/prompt-message/Prompt-message";
 import MovieDetails from "./components/movie-details/Movie-details";
 import MovieList from "./components/movie-list/Movie-list";
 import MovieSummary from "./components/movie-summary/Movie-summary";
-import Navigation from "./components/navigation/Navigation";
+import NavBar from "./components/navbar/NavBar";
 import NumResults from "./components/num-results/Num-results";
 import Search from "./components/search/Search";
 import WatchedList from "./components/watched-list/Watched-list";
@@ -86,13 +86,13 @@ export default function App() {
 
   return (
     <>
-      <Navigation>
+      <NavBar>
         <Logo isMovieLoaded={Boolean(movies.length)} />
         <Search {...{ query, handleSearch }}>
           <NumResults numberOfResults={movies.length} />
         </Search>
         <Switch />
-      </Navigation>
+      </NavBar>
       <DragDropContext onDragEnd={handleDragEnd}>
         <MainContent>
           {boxOrder.map((data, index) => {

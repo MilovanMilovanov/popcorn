@@ -1,0 +1,72 @@
+@import "../../global.less";
+
+@slider-width: 4rem;
+@slider-height: 2rem;
+@slider-handle-size: 1.5rem;
+@slider-transition: 0.4s;
+
+.switch {
+  .flex_layout();
+  position: relative;
+  width: @slider-width;
+  height: @slider-height;
+  margin-top: 1.5rem;
+
+  .switch-label {
+    position: absolute;
+    top: 2rem;
+    left: 0.3rem;
+    font-size: 1.1rem;
+    color: var(--color-white);
+    pointer-events: none;
+  }
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    &:checked + .slider {
+      background: var(--color-switch);
+    }
+
+    &:focus + .slider {
+      box-shadow: 0 0 1px var(--color-switch);
+    }
+
+    &:checked + .slider:before {
+      transform: translateX(1.9rem);
+    }
+  }
+
+  .slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: @slider-transition;
+    background: var(--color-background-900);
+    cursor: pointer;
+
+
+    &:before {
+      position: absolute;
+      content: "";
+      height: @slider-handle-size;
+      width: @slider-handle-size;
+      left: 0.3rem;
+      bottom: 0.3rem;
+      background: var(--color-white);
+      transition: @slider-transition;
+    }
+
+    &.round {
+      border-radius: @slider-height;
+
+      &:before {
+        border-radius: 50%;
+      }
+    }
+  }
+}

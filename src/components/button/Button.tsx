@@ -1,12 +1,12 @@
 import { ReactNode } from "react";
 
 export interface BtnProps {
-  className?: string;
   id?: string;
   testId?: string;
   "aria-expanded"?: boolean;
-  onClick?: () => void;
-  children?: ReactNode;
+  children: ReactNode;
+  className: string;
+  onClick: () => void;
 }
 
 export default function Button(props: BtnProps): JSX.Element {
@@ -15,7 +15,7 @@ export default function Button(props: BtnProps): JSX.Element {
   return (
     <button
       className={className}
-      onClick={() => onClick?.()}
+      onClick={onClick}
       data-testid={testId}
       {...attributes}
     >

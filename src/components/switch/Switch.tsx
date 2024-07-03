@@ -1,5 +1,5 @@
 import useTheme from "../../hooks/useTheme/useTheme";
-import "./switch.less";
+import styles from "./switch.module.less";
 
 interface SwitchProps {
   testId?: string;
@@ -9,9 +9,9 @@ export default function Switch(props: SwitchProps) {
   const { testId } = props;
 
   return (
-    <div className="container-switch">
-      <label className="switch" htmlFor="theme-switch">
-        <span className="switch-label">theme</span>
+    <div>
+      <label className={styles.switch} htmlFor="theme-switch">
+        <span className={styles["switch-label"]}>theme</span>
         <input
           data-testid={testId}
           type="checkbox"
@@ -22,7 +22,7 @@ export default function Switch(props: SwitchProps) {
           aria-label="Toggle theme"
           role="switch"
         />
-        <span className="slider round"></span>
+        <span className={`${styles.slider} ${styles.round}`}></span>
       </label>
     </div>
   );

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import "./num-results.less";
+import styles from "./num-results.module.less";
 
 export interface NumResultsProps {
   numberOfResults: number;
@@ -18,13 +18,17 @@ export default function NumResults(props: NumResultsProps) {
   }, [numberOfResults]);
 
   return (
-    <div className="num-results-container">
-      <span ref={ref} className="num-results animate" data-testid={testId}>
+    <div className={styles["num-results-container"]}>
+      <span
+        ref={ref}
+        className={`${styles["num-results"]} ${styles["animate"]}`}
+        data-testid={testId}
+      >
         Found<pre> </pre>
         {numberOfResults ? (
           <>
-            <strong className="zoom">{numberOfResults}</strong>
-            <div className="zoom-placeholder">{numberOfResults}</div>
+            <strong className={styles.zoom}>{numberOfResults}</strong>
+            <div className={styles["zoom-placeholder"]}>{numberOfResults}</div>
           </>
         ) : (
           <strong>{numberOfResults}</strong>

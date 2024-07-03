@@ -1,8 +1,8 @@
 import { CSSProperties, useState } from "react";
-import Star from "./star/Star";
-import "./star-rating.less";
-import { handleConvertColor } from "../utils/color-utils";
 import Color from "color";
+import { handleConvertColor } from "../utils/color-utils";
+import Star from "./star/Star";
+import styles from "./star-rating.module.less";
 
 const defaultColor = "#FFA500";
 
@@ -60,12 +60,12 @@ export default function StarRating(props: StarRatingProps): JSX.Element {
 
   return (
     <div
-      className={`rating-position ${ratingPosition}`}
+      className={`${styles["rating-position"]} ${ratingPosition}`}
       style={ratingStyles}
       data-testid={testId}
       role="slider"
     >
-      <div className="stars-container">
+      <div className={styles["stars-container"]}>
         {Array.from({ length: maxRating ?? 10 }, (_, i) => (
           <Star
             handleUpdateRating={handleUpdateRating}

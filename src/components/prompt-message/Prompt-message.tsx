@@ -1,15 +1,15 @@
 import { ReactNode } from "react";
-import "./prompt-message.less";
+import styles from "./prompt-message.module.less";
 
 export interface PromptMessageProps {
   testId?: string;
-  children?: ReactNode;
+  children: ReactNode;
 }
 
 export default function PromptMessage(props: PromptMessageProps): JSX.Element {
   const { testId, children } = props;
   return (
-    <p className="prompt-message" data-testid={testId}>
+    <p className={styles["prompt-message"]} data-testid={testId}>
       <span>🙂</span>
       {children}
     </p>

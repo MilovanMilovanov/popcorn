@@ -1,6 +1,6 @@
 import { ChangeEvent, ReactNode, RefObject, useEffect, useRef } from "react";
 import useKey from "../../hooks/useKey/useKey";
-import "./search.less";
+import styles from "./search.module.less";
 
 export interface SearchProps {
   query?: string;
@@ -33,10 +33,10 @@ export default function Search(props: SearchProps): JSX.Element {
   useKey((key) => handleEnter(key, keyHandlerParams));
 
   return (
-    <section className="search-wrapper">
+    <section className={styles["search-wrapper"]}>
       <input
         ref={inputRef}
-        className="search"
+        className={styles.search}
         type="text"
         placeholder="Search movies..."
         value={query}
