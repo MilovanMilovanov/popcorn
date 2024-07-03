@@ -39,8 +39,6 @@ const keyHandlers: KeyHandlersProps = {
   },
 
   ArrowLeft: (params: MovieComponentProps) => {
-    console.log(params.isBoxOrderChanged);
-
     params.isBoxOrderChanged
       ? arrowLeftAndRightKeyHandlers.arrowRight(params)
       : arrowLeftAndRightKeyHandlers.arrowLeft(params);
@@ -98,7 +96,7 @@ export default function MovieList(props: MovieComponentProps): JSX.Element {
   };
 
   useKey((key) => {
-    handleKeyPress(key, keyHandlerParams, keyHandlers[key]);
+    handleKeyPress(keyHandlerParams, keyHandlers[key]);
   });
 
   return (
@@ -114,11 +112,6 @@ export default function MovieList(props: MovieComponentProps): JSX.Element {
             movieRef,
           }}
         >
-          {/* <div className={styles["movie-year"]}>
-            <span>🗓</span>
-            <span>{movie.Year}</span>
-          </div> */}
-
           <MovieStatistics statistics={{ year: movie.Year }} />
         </Movie>
       ))}

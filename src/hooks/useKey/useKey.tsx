@@ -1,50 +1,28 @@
 import { useEffect } from "react";
+import { MovieComponentProps } from "../../components/movie/Movie";
 
-type KeyType =
-  | "ArrowUp"
-  | "ArrowDown"
-  | "ArrowLeft"
-  | "ArrowRight"
-  | "Enter"
-  | "Escape";
+enum KeyType {
+  ArrowUp = "ArrowUp",
+  ArrowDown = "ArrowDown",
+  ArrowLeft = "ArrowLeft",
+  ArrowRight = "ArrowRight",
+  Enter = "Enter",
+  Escape = "Escape",
+}
 
-export const handleKeyPress = <K extends KeyType, P extends any>(
-  key: K,
-  params: P,
-  action: (params: P) => void
-) => {
-  key === "Enter" && action?.(params);
-  key === "ArrowUp" && action?.(params);
-  key === "ArrowDown" && action?.(params);
-  key === "ArrowLeft" && action?.(params);
-  key === "ArrowRight" && action?.(params);
-};
+export const handleKeyPress = <Params extends MovieComponentProps>(
+  params: Params,
+  action: (params: Params) => void
+) => action?.(params);
 
-export default function useKey(action: (key: KeyType) => void) {
+export default function useKey(action: (key: keyof typeof KeyType) => void) {
   useEffect(() => {
     const callBack = (e: KeyboardEvent) => {
-      switch (e.code) {
-        case "ArrowUp":
-          action(e.code);
-          break;
-        case "ArrowDown":
-          action(e.code);
-          break;
-        case "ArrowRight":
-          action(e.code);
-          break;
-        case "ArrowLeft":
-          action(e.code);
-          break;
-        case "Escape":
-          action(e.code);
-          break;
-        case "Enter":
-          action(e.code);
-          break;
-        default:
-          return;
-      }
+      const key = e.code;
+
+      if (!Object.values(KeyType).includes(key as any)) return;
+
+      action(key as keyof typeof KeyType);
     };
 
     document.addEventListener("keydown", callBack);
