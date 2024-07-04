@@ -13,6 +13,7 @@ export interface MovieContainerProps {
 
 export default function MovieContainer(props: MovieContainerProps) {
   const [isOpen, setIsOpen] = useState<boolean>(true);
+
   const { index, id, testId, children } = props;
 
   const handleToggleBox = () => {
@@ -21,16 +22,20 @@ export default function MovieContainer(props: MovieContainerProps) {
 
   return (
     <Draggable index={index} draggableId={id}>
-      {(provided) => (
+      {(provided, snapshot) => (
         <section
           ref={provided.innerRef}
           {...provided.draggableProps}
-          {...provided.dragHandleProps}
           className={styles["movie-container"]}
           data-testid={testId}
         >
           <div className={styles.header}>
-            <DragIcon />
+            <Button
+              {...provided.dragHandleProps}
+              className={styles["btn-drag"]}
+            >
+              <DragIcon isDragging={snapshot.isDragging} />
+            </Button>
             <Button
               className={styles["btn-toggle"]}
               onClick={handleToggleBox}

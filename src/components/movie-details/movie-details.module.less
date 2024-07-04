@@ -12,16 +12,16 @@
 
     .btn-back {
       position: absolute;
-      top: 0.6rem;
-      left: 0.6rem;
+      top: 1rem;
+      left: 1rem;
       z-index: 999;
-      height: 2.4rem;
-      aspect-ratio: 1;
+      width: 2.6rem;
+      height: 2.6rem;
       border-radius: 50%;
       font-size: 2rem;
       background: var(--color-white);
-      box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.8);
-      .button_basics(var(--color-background-500), var(--btn-color-default-hover));
+      box-shadow: 0 0.8rem 2rem var(--box-header-shadow);
+      .button_basics(var(--color-white), var(--btn-back-bg-hover-color));
     }
 
     .poster-img {
@@ -34,7 +34,7 @@
 
     .flex_layout(@direction: column, @gap: 1.4rem);
       padding: 2.4rem 3rem;
-      background: var(--color-background-100);
+      background: var(--movie-bg-hover-color);
 
       .movie-title {
         margin-bottom: 0.4rem;
@@ -58,7 +58,7 @@
       margin-bottom: 0.8rem;
       border-radius: 0.9rem;
       font-weight: 600;
-      background-color: var(--color-background-100);
+      background: var(--movie-bg-hover-color);
       
       .user-rating {
         .flex_layout(@gap: 1rem);
@@ -72,7 +72,7 @@
         font-size: 1.4rem;
         color: var(--color-text);
         background: var(--color-primary);
-        .button_basics(var(--color-text), var(--color-primary-light));
+        .button_basics(var(--color-text), var(--add-movie-btn-bg-hover-color));
       }
     }
   }

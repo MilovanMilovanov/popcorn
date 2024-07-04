@@ -3,15 +3,17 @@ import styles from "./drag-icon.module.less";
 
 export interface DragIconProps {
   testId?: string;
+  isDragging: boolean;
 }
 
 export default function DragIcon(props: DragIconProps) {
   const [isHovered, setIsHovered] = useState<boolean>(false);
-  const { testId } = props;
+  const { isDragging, testId } = props;
 
-  const bgColor = isHovered
-    ? "var(--color-background-100)"
-    : "var(--drag-icon-bg-color)";
+  const bgColor =
+    isHovered || isDragging
+      ? "var(--dragzone-bg-color)"
+      : "var(--color-btn-toggle)";
 
   return (
     <svg

@@ -7,6 +7,15 @@ export interface MainProps {
   children: ReactNode;
 }
 
+const dragPlaceholderStyles = (isDragging: boolean) => {
+  if (!isDragging) return {};
+
+  return {
+    background: "var(--dragzone-bg-color)",
+    border: "0.1rem dashed var(--dragzone-border-color)",
+  };
+};
+
 export default function Main(props: MainProps) {
   const { testId, children } = props;
   return (
@@ -15,9 +24,7 @@ export default function Main(props: MainProps) {
         <main
           data-testid={testId}
           className={styles["main-content"]}
-          style={{
-            background: snapshot.isDraggingOver ? "rgba(90, 67, 48, 0.4)" : "",
-          }}
+          style={dragPlaceholderStyles(snapshot.isDraggingOver)}
           ref={provided.innerRef}
           {...provided.droppableProps}
         >

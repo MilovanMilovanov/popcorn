@@ -7,29 +7,33 @@
     width: 100%;
     min-width: 20rem;
     border-radius: 0.9rem;
-    background-color: var(--color-background-500);
-    
+    background-color: var(--movie-container-bg-color);
+
     .header {
       .flex_layout(@align: center, @justify: space-between);
       position: absolute;
       z-index: 1;
       top: 0;
-      padding: 0 0.5rem;
+      padding: 1rem;
       width: 100%;
       height: 4rem;
       border-radius: 0.9rem 0.9rem 0 0 ;
       background: var(--box-header-bg-color);
       box-shadow: 0 2px 5px 0 var(--box-header-shadow);
       cursor: default;
-      
+
+      .btn-drag {
+        background: none;
+        border: none;
+      }
       .btn-toggle {
-        width: 2.7rem;
-        height: 2.7rem;
+        width: 2.6rem;
+        height: 2.6rem;
         border-radius: 50%;
         font-size: 1.4rem;
-        color: var(--color-text);
-        background: var(--color-background-900);
-        .button_basics(var(--color-text), var(--color-primary))
+        color: var(--color-white);
+        background: var(--color-btn-toggle);
+        .button_basics(var(--color-text), var(--color-primary));
       }
     }
 
@@ -39,3 +43,10 @@
       height: 100%;
     }
   }
+
+  @media only screen and (max-width: 768px) {
+    .movie-container {
+      border-radius: 0.6rem;
+    }
+  }
+  

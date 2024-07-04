@@ -9,14 +9,16 @@
     column-gap: 3.4rem;
     padding: 1rem;
     font-size: 1.6rem;
-    border-bottom: 0.1rem solid var(--color-background-100);
+    border-bottom: 0.1rem solid var(--movie-separator-line-color);
+    border-radius: 0.7rem;
     cursor: pointer;
     transition: ease-in-out 0.3s;
     
     &:hover {
-        background: var(--color-background-100);
+      background: var(--movie-bg-hover-color);
+      box-shadow: 0 2px 5px 0 var(--box-header-shadow);
         .poster-img {
-          filter: brightness(125%);
+          filter: brightness(145%);
           mask-position: 0 0;
         }
     }
@@ -43,12 +45,17 @@
   
 @media only screen and (max-width: 768px) {
     .movie-container {
-      padding: 1.3rem 0;
+      padding: 1.3rem;
       column-gap: 4.6rem;
 
       .poster-img {
         width: 8rem;
       }
+
+      .movie-title {
+        font-size: 1.4rem;
+      }
+    
     }
   }
   

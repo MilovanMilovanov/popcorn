@@ -23,13 +23,15 @@ export default function WatchedList(
 
         return (
           <Movie key={movie.imdbID} {...{ ...props, testId: undefined, movie }}>
-            <MovieStatistics statistics={statistics} />
-            <Button
-              className={styles["btn-delete"]}
-              onClick={() => handleRemoveMovie?.(movie.imdbID)}
-            >
-              –
-            </Button>
+            <div style={{ display: "flex" }}>
+              <MovieStatistics statistics={statistics} />
+              <Button
+                className={styles["btn-delete"]}
+                onClick={() => handleRemoveMovie?.(movie.imdbID)}
+              >
+                –
+              </Button>
+            </div>
           </Movie>
         );
       })}

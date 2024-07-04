@@ -1,12 +1,13 @@
-import useTheme from "../../hooks/useTheme/useTheme";
+import { ChangeEvent } from "react";
 import styles from "./switch.module.less";
 
 interface SwitchProps {
   testId?: string;
+  theme: string;
+  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 export default function Switch(props: SwitchProps) {
-  const [theme, handleChange] = useTheme("dark");
-  const { testId } = props;
+  const { testId, theme, handleChange } = props;
 
   return (
     <div>

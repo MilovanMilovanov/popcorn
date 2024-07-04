@@ -1,17 +1,16 @@
 @import "../../global.less";
 
 .watched-list {
-  margin-bottom: 5.5rem;
-
-.btn-delete {
-  position: absolute;
-  right: 0.8rem;
-  height: 2.4rem;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: var(--color-red);
-  font-size: 1.5rem;
-  transition: all 0.3s;
-  .button_basics(var(--color-white), var(--color-red-dark));
-}
-}
+  
+  .btn-delete {
+    border-radius: 50%;
+    margin-left: auto;
+    height: 2.6rem;
+    width: 2.6rem;
+    background: var(--btn-delete-bg-color);
+    font-size: 1.5rem;
+    transition: all 0.3s;
+    .button_basics(var(--color-white), var(--btn-delete-bg-hover-color));
+  }
+  }
+  
