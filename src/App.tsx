@@ -1,8 +1,10 @@
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { DragDropContext, DropResult } from "react-beautiful-dnd";
+import { MovieDetailsProps } from "./components/movie/Movie";
 import useFetchMovies from "./hooks/useFetchMovies/useFetchMovies";
 import useLocalStorage from "./hooks/useLocalStorage/useLocalStorage";
-import Box from "./components/MovieContainer/MovieContainer";
 import Logo from "./components/logo/Logo";
+import MovieContainer from "./components/MovieContainer/MovieContainer";
 import ErrorMessage from "./components/error/Error";
 import PromptMessage from "./components/prompt-message/Prompt-message";
 import MovieDetails from "./components/movie-details/Movie-details";
@@ -13,10 +15,11 @@ import NumResults from "./components/num-results/Num-results";
 import Search from "./components/search/Search";
 import WatchedList from "./components/watched-list/Watched-list";
 import MainContent from "./components/main-content/MainContent";
-import { MovieDetailsProps } from "./components/movie/Movie";
 import Switch from "./components/switch/Switch";
-import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import Loader from "./components/loader/Loader";
+import popcornDarkDemo from "./assets/popcorn-dark-demo.gif";
+import popcornLightDemo from "./assets/popcorn-light-demo.gif";
+import useTheme from "./hooks/useTheme/useTheme";
 
 const reorder = (
   list: { id: string }[],
@@ -35,11 +38,13 @@ export default function App() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const { movies, isLoading, error } = useFetchMovies(query);
   const [watched, setWatched] = useLocalStorage<[]>([], "watched");
+  const [theme, handleChange] = useTheme("dark");
   const [isBoxOrderChanged, setIsBoxOrderChanged] = useState<boolean>(false);
   const [boxOrder, setBoxOrder] = useState([
     { id: "movieList" },
-    { id: "watchlist" },
+    { id: "watchedlist" },
   ]);
+
   const handleSelectedId = useCallback(
     (id: string | null) => {
       setSelectedId(selectedId === id ? null : id);
@@ -91,18 +96,28 @@ export default function App() {
         <Search {...{ query, handleSearch }}>
           <NumResults numberOfResults={movies.length} />
         </Search>
-        <Switch />
+        <Switch {...{ theme, handleChange }} />
       </NavBar>
       <DragDropContext onDragEnd={handleDragEnd}>
         <MainContent>
           {boxOrder.map((data, index) => {
             if (data.id === "movieList") {
               return (
-                <Box key={data.id} id={data.id} index={index}>
+                <MovieContainer key={data.id} id={data.id} index={index}>
                   {query.length < 3 && (
-                    <PromptMessage>
-                      <span>Enter a movie title</span>
-                    </PromptMessage>
+                    <>
+                      <PromptMessage>
+                        <span>Enter a movie title</span>
+                      </PromptMessage>
+                      <img
+                        className="popcorn-demo"
+                        src={
+                          theme === "dark" ? popcornLightDemo : popcornDarkDemo
+                        }
+                        alt="popcorn demo gif"
+                        width="100%"
+                      />
+                    </>
                   )}
                   {isLoading && (
                     <Loader>
@@ -120,11 +135,11 @@ export default function App() {
                     />
                   )}
                   {error && <ErrorMessage error={error} />}
-                </Box>
+                </MovieContainer>
               );
             } else {
               return (
-                <Box key={data.id} id={data.id} index={index}>
+                <MovieContainer key={data.id} id={data.id} index={index}>
                   {selectedId ? (
                     <MovieDetails
                       {...{
@@ -140,7 +155,7 @@ export default function App() {
                       <WatchedList {...{ watched, handleRemoveMovie }} />
                     </>
                   )}
-                </Box>
+                </MovieContainer>
               );
             }
           })}
