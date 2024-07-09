@@ -6,61 +6,67 @@ import {
 } from "@testing-library/react";
 import { describe, expect, test, vi } from "vitest";
 import WatchedList from "./Watched-list";
-import { MovieComponentProps, MovieDetailsProps } from "../movie/Movie";
+import MovieAppProvider, {
+  initialState,
+} from "../../context/movie-app-context/movie-app-context";
 
-const props: MovieComponentProps<MovieDetailsProps> = {
-  watched: [
-    {
-      imdbID: "tt1375666",
-      Title: "Inception",
-      Year: "16 Jul 2010",
-      Runtime: "148 min",
-      imdbRating: "8.8 IMDb rating",
-      userRating: "7",
-    },
-  ],
-  testId: "watchlist-testId",
-  selectedId: "tt1375666",
-  handleRemoveMovie: vi.fn(),
+const testId = "watchlist-testId";
+const selectedId = "tt1375666";
+const handleRemoveMovie = vi.fn();
+
+const watched = {
+  imdbID: "tt1375666",
+  Title: "Inception",
+  Year: "16 Jul 2010",
+  Runtime: "148 min",
+  imdbRating: "8.8 IMDb rating",
+  userRating: "7",
 };
 
-const component = (
-  params = props as MovieComponentProps<MovieDetailsProps>
-) => {
-  render(<WatchedList {...params} />);
+const component = (params = initialState) => {
+  render(
+    <MovieAppProvider contextValue={params}>
+      <WatchedList testId={testId} />
+    </MovieAppProvider>
+  );
 };
 
-const { Title, userRating, imdbRating, Runtime } = props.watched!.at(0)!;
+const { Title: title, Runtime: runtime, userRating, imdbRating } = watched;
 
 describe("WatchedList Redenring", () => {
   beforeEach(() => {
-    component();
+    component({
+      ...initialState,
+      handleRemoveMovie,
+      selectedId,
+      watched: [watched],
+    });
   });
-  test("Should render wathclist props", () => {
-    expect(screen.getByTestId(props.testId!)).toBeInTheDocument();
-    expect(screen.queryByText(Title!)).toBeInTheDocument();
-    expect(screen.queryByText(imdbRating!)).toBeInTheDocument();
-    expect(screen.queryByText(userRating!)).toBeInTheDocument();
-    expect(screen.queryByText(Runtime!)).toBeInTheDocument();
-    expect(screen.queryByAltText(`${Title!} poster`)).toBeInTheDocument();
+  test("Should render wathchedList props", () => {
+    expect(screen.getByTestId(testId)).toBeInTheDocument();
+    expect(screen.queryByText(title)).toBeInTheDocument();
+    expect(screen.queryByText(imdbRating)).toBeInTheDocument();
+    expect(screen.queryByText(userRating)).toBeInTheDocument();
+    expect(screen.queryByText(runtime)).toBeInTheDocument();
+    expect(screen.queryByAltText(`${title} poster`)).toBeInTheDocument();
 
-    const btnDelete = document.querySelector(".btn-delete");
-    expect(btnDelete).toBeInTheDocument();
+    const deleteBtn = screen.queryByText("–") as Element;
+    expect(deleteBtn).toBeInTheDocument();
   });
 
   test("handleRemoveMovie should be called once", async () => {
-    const deleteBtn = document.querySelector(".btn-delete") as Element;
+    const deleteBtn = screen.queryByText("–") as Element;
 
     fireEvent.click(deleteBtn);
-    expect(props.handleRemoveMovie).toHaveBeenCalledTimes(1);
+    expect(handleRemoveMovie).toHaveBeenCalledTimes(1);
   });
 
   test("Movie should be removed from WatchedList", () => {
-    const deleteBtn = document.querySelector(".btn-delete") as Element;
+    const deleteBtn = screen.queryByText("–") as Element;
     fireEvent.click(deleteBtn);
-    expect(props.handleRemoveMovie).toHaveBeenCalledWith(props.selectedId);
+    expect(handleRemoveMovie).toHaveBeenCalledWith(selectedId);
 
-    waitForElementToBeRemoved(() => document.querySelector(".btn-delete")).then(
+    waitForElementToBeRemoved(() => screen.queryByText("–") as Element).then(
       () => {
         expect(deleteBtn).not.toBeInTheDocument();
       }

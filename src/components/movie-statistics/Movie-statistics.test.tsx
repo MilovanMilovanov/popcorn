@@ -12,15 +12,15 @@ const props: MovieStatisticsProps = {
 };
 
 const component = () => {
-  render(<MovieStatistics statistics={props.statistics} />);
+  render(<MovieStatistics {...props} />);
 };
 
 describe("MovieStatistics Redenring", () => {
-  test("Should render MovieStatistics movie props", () => {
+  test("Should render MovieStatistics props", () => {
+    component();
     const {
       statistics: { runtime, imdbRating, userRating },
     } = props;
-    component();
     expect(screen.getByTestId(props.testId!)).toBeInTheDocument();
     expect(screen.queryByText(runtime!)).toBeInTheDocument();
     expect(screen.queryByText(imdbRating!)).toBeInTheDocument();

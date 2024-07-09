@@ -7,15 +7,12 @@ const props: BtnProps = {
   id: "1",
   className: "btn2",
   "aria-expanded": true,
+  children: <p>Button Content</p>,
   onClick: vi.fn(),
 };
 
 const component = (params = props) =>
-  render(
-    <Button {...params}>
-      <p>Button Content</p>
-    </Button>
-  );
+  render(<Button {...params}>{params.children}</Button>);
 
 describe("Button Rendering", () => {
   test("Button should be vissible", () => {

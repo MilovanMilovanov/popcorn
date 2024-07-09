@@ -1,10 +1,15 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import Switch from "./Switch";
+import MovieAppProvider from "../../context/movie-app-context/movie-app-context";
 
 const testId = "theme-switch-testId";
 
 const component = () => {
-  render(<Switch testId={testId} />);
+  render(
+    <MovieAppProvider>
+      <Switch testId={testId} />;
+    </MovieAppProvider>
+  );
 };
 
 describe("Switch Component", () => {

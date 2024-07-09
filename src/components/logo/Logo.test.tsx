@@ -1,37 +1,38 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
-import Logo, { LogoProps } from "./Logo";
+import Logo from "./Logo";
+import styles from "./logo.module.less";
+import MovieAppProvider, {
+  initialState,
+} from "../../context/movie-app-context/movie-app-context";
 
-const props: LogoProps = {
-  isMovieLoaded: true,
-  testId: "logo-testId",
-  children: (
-    <>
-      <img src="src\assets\popcorn.jpg" alt="test" />
-      <h1>Popcorn</h1>
-    </>
-  ),
-};
+const testId = "logo-testId";
 
-const component = (params = props) => render(<Logo {...params} />);
+const component = (params = initialState) =>
+  render(
+    <MovieAppProvider contextValue={{ ...params }}>
+      <Logo testId={testId} />
+    </MovieAppProvider>
+  );
 
 describe("Logo Rendering", () => {
   test("The Logo should be rendered", () => {
     component();
-    const logo = screen.getByTestId(props.testId!);
+    const logo = screen.getByTestId(testId);
     expect(logo).toBeInTheDocument();
-    expect(screen.queryByAltText("test")).toBeInTheDocument();
+    expect(screen.queryByAltText("animated popcorn image")).toBeInTheDocument();
   });
 
   test("The logo-highlight class should be present", () => {
-    component({ ...props, isMovieLoaded: true });
-    const logo = screen.getByTestId(props.testId!);
-    expect(logo).toHaveClass("logo-highlight");
+    component({ ...initialState, movies: [{ Year: "2024" }] });
+    const logoImg = screen.getByAltText("animated popcorn image");
+    expect(logoImg).toHaveClass(styles["logo-highlight"]);
   });
 
   test("The logo-highlight class shouldn't be present", () => {
-    component({ ...props, isMovieLoaded: false });
-    const logo = screen.getByTestId(props.testId!);
-    expect(logo).not.toHaveClass("logo-highlight");
+    component({ ...initialState, movies: [] });
+
+    const logoImg = screen.getByAltText("animated popcorn image");
+    expect(logoImg).not.toHaveClass(styles["logo-highlight"]);
   });
 });

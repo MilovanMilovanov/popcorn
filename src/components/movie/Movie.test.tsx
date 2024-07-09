@@ -1,21 +1,26 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, test, vi } from "vitest";
-import Movie, { MovieDetailsProps } from "./Movie";
+import Movie, { MovieProps } from "./Movie";
+import MovieAppProvider, {
+  initialState,
+} from "../../context/movie-app-context/movie-app-context";
 
 const testId = "movie-testId";
 
-const props: MovieDetailsProps = {
+const props: MovieProps = {
   imdbID: "tt1375666",
   Title: "Inception",
   Year: "2010",
   Poster: "image",
 };
 
-const component = (func?: () => {}) =>
+const component = (params = initialState) =>
   render(
-    <Movie testId={testId} movie={props} handleSelectedId={func}>
-      <span>{props.Year}</span>
-    </Movie>
+    <MovieAppProvider contextValue={params}>
+      <Movie testId={testId} movie={props}>
+        <span>{props.Year}</span>
+      </Movie>
+    </MovieAppProvider>
   );
 
 describe("Movie Redenring", () => {
@@ -26,24 +31,23 @@ describe("Movie Redenring", () => {
       expect(screen.getByText(text!)).toBeInTheDocument();
     });
 
-    const li = screen.getByTestId(testId);
-    expect(li).toBeInTheDocument();
+    const element = screen.getByTestId(testId);
+    expect(element).toBeInTheDocument();
   });
 
   test("Should run handleSelectedId once", () => {
     const handleSelectedId = vi.fn();
-    component(handleSelectedId);
+    component({ ...initialState, handleSelectedId });
 
-    const li = screen.getByTestId(testId);
+    const element = screen.getByTestId(testId);
 
-    fireEvent.click(li);
+    fireEvent.click(element);
     expect(handleSelectedId).toBeCalledTimes(1);
   });
   test("Should render the Poster", () => {
     component();
 
-    const li = screen.getByTestId(testId);
-    const poster = li.querySelector("img.poster-img");
+    const poster = screen.queryByAltText(`${props.Title} poster`);
     expect(poster).toBeInTheDocument();
   });
 });

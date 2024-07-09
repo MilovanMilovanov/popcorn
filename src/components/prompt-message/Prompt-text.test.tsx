@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
 import PromptMessage, { PromptMessageProps } from "./Prompt-message";
+import styles from "./prompt-message.module.less";
 
 const props: PromptMessageProps = {
   testId: "generic-text-testId",
@@ -19,7 +20,7 @@ describe("GenericText Redenring", () => {
 
   test("Should render text message", () => {
     const wrapper = screen.getByTestId(props.testId!);
-    expect(wrapper).toHaveClass("prompt-message");
+    expect(wrapper).toHaveClass(styles["prompt-message"]);
     expect(screen.getByText("message")).toBeInTheDocument();
   });
 });
