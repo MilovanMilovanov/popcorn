@@ -17,8 +17,12 @@
     &:hover {
       background: var(--movie-bg-hover-color);
       box-shadow: 0 2px 5px 0 var(--box-header-shadow);
-        .poster-img {
-          filter: brightness(145%);
+
+       :global(body[data-theme="light"]) & .poster-img {
+          mask-position: 0 0;
+        }
+       :global(body[data-theme="dark"]) & .poster-img {
+          filter: brightness(140%);
           mask-position: 0 0;
         }
     }

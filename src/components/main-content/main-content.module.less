@@ -1,18 +1,24 @@
 
 @import "../../global.less";
 
-.main-content {
-  .flex_layout(@gap: 2.2rem, @justify: center);
+.main-wrapper {
   padding: 2rem;
-  width: 100%;
-  height: calc(100vh - 9rem);
-  border-radius: 1rem;
-  overflow: hidden;
+  
+  .main-content {
+    .flex_layout(@gap: 2.2rem, @justify: center);
+    width: 100%;
+    height: calc(100vh - 9rem);
+    border-radius: 1rem;
+    overflow: hidden;
+  }
 }
 
 @media only screen and (max-width: 768px) {
-  .main-content {
-    .flex_layout(@gap: 1.2rem, @justify: center);
+  .main-wrapper {
     padding: 1rem 0 0 0;
+    
+    .main-content {
+      .flex_layout(@gap: 1.5rem);
+    }
   }
 }

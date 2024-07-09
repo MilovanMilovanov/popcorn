@@ -21,15 +21,16 @@ export default function MainContent(props: MainProps) {
   return (
     <StrictModeDroppable droppableId="main-content" direction="horizontal">
       {(provided, snapshot) => (
-        <main
-          data-testid={testId}
-          className={styles["main-content"]}
-          style={dragPlaceholderStyles(snapshot.isDraggingOver)}
-          ref={provided.innerRef}
-          {...provided.droppableProps}
-        >
-          {children}
-          {provided.placeholder}
+        <main data-testid={testId} className={styles["main-wrapper"]}>
+          <div
+            className={styles["main-content"]}
+            style={dragPlaceholderStyles(snapshot.isDraggingOver)}
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+          >
+            {children}
+            {provided.placeholder}
+          </div>
         </main>
       )}
     </StrictModeDroppable>
