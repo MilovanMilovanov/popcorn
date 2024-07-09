@@ -7,6 +7,7 @@ Movie App
 - [Technologies Used](#technologies-used)
 - [Start the App](#start-the-app)
 - [Testing](#testing)
+- [State Management](#state-management)
 
 ## Overview
 
@@ -62,3 +63,7 @@ npm run dev
 To run tests with Vitest:
 
 npm run test
+
+## State Management
+
+I utalized Context API for state management
