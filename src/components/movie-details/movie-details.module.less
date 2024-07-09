@@ -30,27 +30,24 @@
     }
 
     .overview {
+      .flex_layout(@direction: column, @gap: 3rem);
+      padding: 2rem 2.5rem;
       width: 100%;
-
-    .flex_layout(@direction: column, @gap: 1.4rem);
-      padding: 2.4rem 3rem;
       background: var(--movie-bg-hover-color);
+      text-wrap: nowrap;
 
       .movie-title {
         margin-bottom: 0.4rem;
         line-height: 1.1;
         font-size: 2.4rem;
         word-break: break-all;
-      }
-
-      p {
-        .flex_layout(@gap: 1.4rem);
+        text-shadow: 0.2rem 0.3rem 0.2rem var(--app-bg-color);
       }
     }
   }
 
   .body {
-    .flex_layout(@direction: column, 1.6rem);
+    .flex_layout(@direction: column, @gap: 1.6rem);
     padding: 4rem;
 
     .rating {
@@ -62,6 +59,7 @@
       
       .user-rating {
         .flex_layout(@gap: 1rem);
+        text-wrap: nowrap;
       }
     
       .btn-add {
@@ -75,6 +73,8 @@
         .button_basics(var(--color-text), var(--add-movie-btn-bg-hover-color));
       }
     }
+
+
   }
 }
 
@@ -84,13 +84,25 @@
     .header {
       display: block;
 
+      .overview {
+        padding: 2rem 1.5rem;
+      }
+
       .poster-img {
         width: 100%;
         object-fit: cover;
       }
     }
     .body {
-      padding: 1.5rem;
+      padding: 1.5rem 0 2rem 0;
+
+      .user-rating {
+        padding: 0 0.5rem;
+      }
+
+      .plot, .actors, .directed {
+        padding: 0 2rem;
+      }
     }
   }
 }

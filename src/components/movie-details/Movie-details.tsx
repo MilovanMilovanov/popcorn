@@ -97,7 +97,10 @@ export default function MovieDetails(props: MovieDetailsProps) {
                 {released} &bull; {runtime}
               </p>
               <p>{genre}</p>
-              <p>⭐{imdbRating} IMDb rating</p>
+              <p>
+                <span>⭐ </span>
+                {imdbRating} IMDb rating
+              </p>
             </div>
           </header>
 
@@ -105,8 +108,8 @@ export default function MovieDetails(props: MovieDetailsProps) {
             <div className={styles.rating}>
               {isMovieInWatchlist ? (
                 <p className={styles["user-rating"]}>
-                  <span>🌟</span>
-                  {isMovieInWatchlist.userRating} Your rating for this movie
+                  <span>🌟 {isMovieInWatchlist.userRating}</span>
+                  <span> Your rating for this movie</span>
                 </p>
               ) : (
                 <StarRating
@@ -123,11 +126,11 @@ export default function MovieDetails(props: MovieDetailsProps) {
                 </Button>
               )}
             </div>
-            <p>
+            <p className={styles.plot}>
               <em>{plot}</em>
             </p>
-            <p>Starting {actors}</p>
-            <p>Directed by {director}</p>
+            <p className={styles.actors}>Starting {actors}</p>
+            <p className={styles.directed}>Directed by {director}</p>
           </section>
         </>
       )}
