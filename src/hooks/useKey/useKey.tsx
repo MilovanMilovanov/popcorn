@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { MovieComponentProps } from "../../components/movie/Movie";
+import { keyHandlerParamsProps } from "../../components/movie-list/Movie-list";
 
-enum KeyType {
+enum Keys {
   ArrowUp = "ArrowUp",
   ArrowDown = "ArrowDown",
   ArrowLeft = "ArrowLeft",
@@ -10,19 +10,20 @@ enum KeyType {
   Escape = "Escape",
 }
 
-export const handleKeyPress = <Params extends MovieComponentProps>(
-  params: Params,
-  action: (params: Params) => void
+export const handleKeyPress = <KeyParams extends keyHandlerParamsProps>(
+  params: KeyParams,
+  action: (params: KeyParams) => void
 ) => action?.(params);
+type KeyType = keyof typeof Keys;
 
-export default function useKey(action: (key: keyof typeof KeyType) => void) {
+export default function useKey(action: (key: KeyType) => void) {
   useEffect(() => {
     const callBack = (e: KeyboardEvent) => {
       const key = e.code;
 
-      if (!Object.values(KeyType).includes(key as any)) return;
+      if (!Object.values(Keys).includes(key as any)) return;
 
-      action(key as keyof typeof KeyType);
+      action(key as KeyType);
     };
 
     document.addEventListener("keydown", callBack);

@@ -8,7 +8,7 @@ type useThemeReturn = [string, (e: ChangeEvent<HTMLInputElement>) => void];
 export default function useTheme(initialTheme: Theme): useThemeReturn {
   const [theme, setTheme] = useLocalStorage<Theme>(initialTheme, "theme");
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleThemeChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTheme(e.target.checked ? "dark" : "light");
   };
 
@@ -16,5 +16,5 @@ export default function useTheme(initialTheme: Theme): useThemeReturn {
     document.body.setAttribute("data-theme", theme);
   }, [theme]);
 
-  return [theme, handleChange];
+  return [theme, handleThemeChange];
 }

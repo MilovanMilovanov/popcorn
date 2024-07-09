@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { MovieDetailsProps } from "../../components/movie/Movie";
+import { MovieProps } from "../../components/movie/Movie";
 
 const API_KEY = "d74493d0";
 
 export default function useFetchMovies(query: string) {
-  const [movies, setMovies] = useState<MovieDetailsProps[]>([]);
+  const [movies, setMovies] = useState<MovieProps[]>([]);
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
