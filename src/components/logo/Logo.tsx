@@ -1,17 +1,18 @@
+import { useMovieAppContext } from "../../context/movie-app-context/movie-app-context";
 import styles from "./logo.module.less";
 
 export interface LogoProps {
-  isMovieLoaded?: boolean;
   testId?: string;
 }
 
 export default function Logo(props: LogoProps) {
-  const { isMovieLoaded, testId } = props;
+  const { movies } = useMovieAppContext();
+  const { testId } = props;
   return (
     <div data-testid={testId} className={styles["logo-container"]}>
       <img
         className={`${styles["logo-img"]} ${
-          isMovieLoaded ? styles["logo-highlight"] : ""
+          movies.length ? styles["logo-highlight"] : ""
         }`}
         src="src\assets\popcorn.jpg"
         alt="animated popcorn image"

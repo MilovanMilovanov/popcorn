@@ -8,13 +8,16 @@ export interface BtnProps {
   onClick?: () => void;
 }
 
-export default function Button(props: BtnProps): JSX.Element {
+export default function Button(props: BtnProps) {
   const { className, id, testId, onClick, children, ...attributes } = props;
 
   return (
     <button
       className={className}
-      onClick={() => onClick?.()}
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick?.();
+      }}
       data-testid={testId}
       {...attributes}
     >

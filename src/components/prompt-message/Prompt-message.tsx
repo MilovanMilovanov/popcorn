@@ -6,7 +6,7 @@ export interface PromptMessageProps {
   children: ReactNode;
 }
 
-export default function PromptMessage(props: PromptMessageProps): JSX.Element {
+export default function PromptMessage(props: PromptMessageProps) {
   const { testId, children } = props;
   return (
     <p className={styles["prompt-message"]} data-testid={testId}>

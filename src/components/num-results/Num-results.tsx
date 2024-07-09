@@ -1,13 +1,17 @@
 import { useEffect, useRef } from "react";
 import styles from "./num-results.module.less";
+import { useMovieAppContext } from "../../context/movie-app-context/movie-app-context";
 
 export interface NumResultsProps {
-  numberOfResults: number;
   testId?: string;
 }
+
 export default function NumResults(props: NumResultsProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  const { numberOfResults, testId } = props;
+  const { movies } = useMovieAppContext();
+  const { testId } = props;
+
+  const numberOfResults = movies.length;
 
   useEffect(() => {
     if (ref.current) {

@@ -1,7 +1,7 @@
 import { CSSProperties } from "react";
 import { StarRatingProps } from "../Star-rating";
 
-export default function Star(props: StarRatingProps): JSX.Element {
+export default function Star(props: StarRatingProps) {
   const {
     size,
     starIndex,

@@ -1,8 +1,26 @@
-import { useRef } from "react";
-import useKey, { handleKeyPress } from "../../hooks/useKey/useKey";
-import Movie, { MovieComponentProps } from "../movie/Movie";
-import styles from "./movie-list.module.less";
+import { RefObject, useRef } from "react";
+import { useMovieAppContext } from "../../context/movie-app-context/movie-app-context";
 import MovieStatistics from "../movie-statistics/Movie-statistics";
+import useKey, { handleKeyPress } from "../../hooks/useKey/useKey";
+import Movie, { MovieProps } from "../movie/Movie";
+import styles from "./movie-list.module.less";
+
+export interface MovieListProps {
+  testId?: string;
+}
+
+export interface keyHandlerParamsProps {
+  movies: MovieProps[];
+  movieRef: RefObject<HTMLUListElement>;
+  selectedId: string | null;
+  isBoxOrderChanged?: boolean;
+  getFocusedElementIndex?: (ref: HTMLUListElement) => [HTMLElement[], number];
+  handleSelectedId: (id: string | null) => void;
+}
+
+interface KeyHandlersProps {
+  [index: string]: (params: keyHandlerParamsProps) => void;
+}
 
 const getFocusedElementIndex = (ref: HTMLElement): [HTMLElement[], number] => {
   const list = Array.from(ref.querySelectorAll("li"));
@@ -12,12 +30,8 @@ const getFocusedElementIndex = (ref: HTMLElement): [HTMLElement[], number] => {
   return [list, focusedIndex];
 };
 
-interface KeyHandlersProps {
-  [index: string]: (params: MovieComponentProps) => void;
-}
-
 const keyHandlers: KeyHandlersProps = {
-  ArrowUp: (params: MovieComponentProps) => {
+  ArrowUp: (params: keyHandlerParamsProps) => {
     const { movieRef } = params;
 
     if (movieRef?.current) {
@@ -28,7 +42,7 @@ const keyHandlers: KeyHandlersProps = {
     }
   },
 
-  ArrowDown: (params: MovieComponentProps) => {
+  ArrowDown: (params: keyHandlerParamsProps) => {
     const { movieRef } = params;
 
     if (movieRef?.current) {
@@ -38,13 +52,13 @@ const keyHandlers: KeyHandlersProps = {
     }
   },
 
-  ArrowLeft: (params: MovieComponentProps) => {
+  ArrowLeft: (params: keyHandlerParamsProps) => {
     params.isBoxOrderChanged
       ? arrowLeftAndRightKeyHandlers.arrowRight(params)
       : arrowLeftAndRightKeyHandlers.arrowLeft(params);
   },
 
-  ArrowRight: (params: MovieComponentProps) => {
+  ArrowRight: (params: keyHandlerParamsProps) => {
     params.isBoxOrderChanged
       ? arrowLeftAndRightKeyHandlers.arrowLeft(params)
       : arrowLeftAndRightKeyHandlers.arrowRight(params);
@@ -52,7 +66,7 @@ const keyHandlers: KeyHandlersProps = {
 };
 
 const arrowLeftAndRightKeyHandlers = {
-  arrowLeft: (params: MovieComponentProps) => {
+  arrowLeft: (params: keyHandlerParamsProps) => {
     const { movieRef, movies, selectedId, handleSelectedId } = params;
 
     if (movieRef?.current && movies) {
@@ -64,28 +78,30 @@ const arrowLeftAndRightKeyHandlers = {
 
       if (lastFocused >= 0) {
         list[lastFocused]?.focus();
-        handleSelectedId?.(null);
+        handleSelectedId(null);
       }
     }
   },
 
-  arrowRight: (params: MovieComponentProps) => {
+  arrowRight: (params: keyHandlerParamsProps) => {
     const { movieRef, movies, handleSelectedId } = params;
 
     if (movieRef?.current && movies) {
       const [list, focusedIndex] = getFocusedElementIndex(movieRef.current);
+
       if (focusedIndex >= 0) {
         list[focusedIndex].blur();
-        handleSelectedId?.(movies[focusedIndex].imdbID ?? null);
+        handleSelectedId(movies[focusedIndex].imdbID!);
       }
     }
   },
 };
 
-export default function MovieList(props: MovieComponentProps): JSX.Element {
+export default function MovieList(props: MovieListProps) {
   const movieRef = useRef<HTMLUListElement>(null);
-  const { movies, selectedId, testId, isBoxOrderChanged, handleSelectedId } =
-    props;
+  const { movies, selectedId, isBoxOrderChanged, handleSelectedId } =
+    useMovieAppContext();
+  const { testId } = props;
 
   const keyHandlerParams = {
     movieRef,
@@ -101,20 +117,23 @@ export default function MovieList(props: MovieComponentProps): JSX.Element {
 
   return (
     <ul ref={movieRef} className={styles["movie-list"]} data-testid={testId}>
-      {movies?.map((movie) => (
-        <Movie
-          key={movie.imdbID}
-          {...{
-            ...props,
-            testId: undefined,
-            movie,
-            getFocusedElementIndex,
-            movieRef,
-          }}
-        >
-          <MovieStatistics statistics={{ year: movie.Year }} />
-        </Movie>
-      ))}
+      {movies.map((movie) => {
+        const { Year: year, imdbID } = movie;
+
+        return (
+          <Movie
+            key={imdbID}
+            {...{
+              movie,
+              movieRef,
+              getFocusedElementIndex,
+              testId: undefined,
+            }}
+          >
+            <MovieStatistics statistics={{ year }} />
+          </Movie>
+        );
+      })}
     </ul>
   );
 }

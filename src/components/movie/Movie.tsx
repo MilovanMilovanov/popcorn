@@ -1,49 +1,35 @@
 import { ReactNode, RefObject } from "react";
+import { useMovieAppContext } from "../../context/movie-app-context/movie-app-context";
 import styles from "./movie.module.less";
 
-export interface MovieDetailsProps {
+export interface MovieProps {
   Poster?: string;
   Title?: string;
   Type?: string;
   Year?: string;
-  imdbID?: string;
-  Runtime?: string;
-  imdbRating?: string;
-  userRating?: number | string | null;
   Plot?: string;
   Released?: string;
   Actors?: string;
   Director?: string;
   Genre?: string;
+  Runtime?: string;
+  imdbID?: string;
+  imdbRating?: string;
+  userRating?: string | null;
 }
 
-export interface MovieComponentProps<MovieProps = MovieDetailsProps> {
-  movie?: MovieProps;
-  movies?: MovieProps[];
-  watched?: MovieProps[] | [];
+export interface ExtendedMovieProps extends MovieProps {
+  movie: MovieProps;
+  children: ReactNode;
   movieRef?: RefObject<HTMLUListElement>;
-  selectedId?: string | null;
-  isBoxOrderChanged?: boolean;
-  testId?: string;
   getFocusedElementIndex?: (ref: HTMLUListElement) => [HTMLElement[], number];
-  handleSelectedId?: (id: string | null) => void;
-  handleRemoveMovie?: (id: string | undefined) => void;
-  children?: ReactNode;
+  testId?: string;
 }
 
-export default function Movie(
-  props: MovieComponentProps<MovieDetailsProps>
-): JSX.Element {
-  const {
-    movie,
-    movieRef,
-    testId,
-    handleSelectedId,
-    getFocusedElementIndex,
-    children,
-  } = props;
-
-  const { Poster, Title, imdbID } = movie!;
+export default function Movie(props: ExtendedMovieProps) {
+  const { handleSelectedId } = useMovieAppContext();
+  const { movie, movieRef, testId, getFocusedElementIndex, children } = props;
+  const { Poster: poster, Title: title, imdbID } = movie;
 
   function onBlur() {
     if (movieRef?.current && getFocusedElementIndex) {
@@ -59,17 +45,17 @@ export default function Movie(
       role="button"
       data-testid={testId}
       onClick={() => {
-        handleSelectedId?.(imdbID!);
+        handleSelectedId(imdbID!);
         onBlur();
       }}
       onBlur={onBlur}
     >
       <img
         className={styles["poster-img"]}
-        src={Poster}
-        alt={`${Title} poster`}
+        src={poster}
+        alt={`${title} poster`}
       />
-      <h3 className={styles["movie-title"]}>{Title}</h3>
+      <h3 className={styles["movie-title"]}>{title}</h3>
       {children}
     </li>
   );

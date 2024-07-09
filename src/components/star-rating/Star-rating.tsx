@@ -31,7 +31,7 @@ export interface StarRatingProps {
   testId?: string;
 }
 
-export default function StarRating(props: StarRatingProps): JSX.Element {
+export default function StarRating(props: StarRatingProps) {
   const [rating, setRating] = useState<number>(0);
   const [hover, setHover] = useState<number>(0);
   const {

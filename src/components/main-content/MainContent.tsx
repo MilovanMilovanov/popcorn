@@ -16,7 +16,7 @@ const dragPlaceholderStyles = (isDragging: boolean) => {
   };
 };
 
-export default function Main(props: MainProps) {
+export default function MainContent(props: MainProps) {
   const { testId, children } = props;
   return (
     <StrictModeDroppable droppableId="main-content" direction="horizontal">

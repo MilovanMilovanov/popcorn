@@ -1,33 +1,35 @@
 import Button from "../button/Button";
-import Movie, { MovieDetailsProps, MovieComponentProps } from "../movie/Movie";
-import MovieStatistics, {
-  StatisticProps,
-} from "../movie-statistics/Movie-statistics";
+import Movie from "../movie/Movie";
+import MovieStatistics from "../movie-statistics/Movie-statistics";
 import styles from "./watched-list.module.less";
+import { useMovieAppContext } from "../../context/movie-app-context/movie-app-context";
 
-export default function WatchedList(
-  props: MovieComponentProps<MovieDetailsProps>
-): JSX.Element {
-  const { watched, testId, handleRemoveMovie } = props;
+interface WatchedList {
+  testId?: string;
+}
+
+export default function WatchedList(props: WatchedList) {
+  const { watched, handleRemoveMovie } = useMovieAppContext();
+  const { testId } = props;
 
   return (
     <ul className={styles["watched-list"]} data-testid={testId}>
-      {watched!.map((movie) => {
-        const { Runtime, userRating, imdbRating } = movie;
-
-        const statistics = {
-          imdbRating,
-          userRating,
-          runtime: Runtime,
-        } as StatisticProps;
+      {watched.map((movie) => {
+        const { Runtime: runtime, userRating, imdbRating, imdbID } = movie;
 
         return (
-          <Movie key={movie.imdbID} {...{ ...props, testId: undefined, movie }}>
+          <Movie key={imdbID} {...{ movie, testId: undefined }}>
             <div style={{ display: "flex" }}>
-              <MovieStatistics statistics={statistics} />
+              <MovieStatistics
+                statistics={{
+                  imdbRating,
+                  userRating: Number(userRating),
+                  runtime,
+                }}
+              />
               <Button
                 className={styles["btn-delete"]}
-                onClick={() => handleRemoveMovie?.(movie.imdbID)}
+                onClick={() => handleRemoveMovie(imdbID)}
               >
                 –
               </Button>

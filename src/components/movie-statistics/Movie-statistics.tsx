@@ -3,8 +3,8 @@ import styles from "./movie-statistics.module.less";
 export type StatisticProps = {
   year?: string;
   imdbRating?: string;
-  userRating?: string;
-  runtime?: string;
+  userRating?: number | null;
+  runtime?: string | undefined;
   watchedMoviesNumber?: string;
 };
 

@@ -1,13 +1,13 @@
-import { ChangeEvent } from "react";
 import styles from "./switch.module.less";
+import { useMovieAppContext } from "../../context/movie-app-context/movie-app-context";
 
 interface SwitchProps {
   testId?: string;
-  theme: string;
-  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
+
 export default function Switch(props: SwitchProps) {
-  const { testId, theme, handleChange } = props;
+  const { theme, handleThemeChange } = useMovieAppContext();
+  const { testId } = props;
 
   return (
     <div>
@@ -17,7 +17,7 @@ export default function Switch(props: SwitchProps) {
           data-testid={testId}
           type="checkbox"
           id="theme-switch"
-          onChange={handleChange}
+          onChange={handleThemeChange}
           checked={theme === "dark"}
           aria-checked={theme === "dark"}
           aria-label="Toggle theme"

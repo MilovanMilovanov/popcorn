@@ -1,18 +1,22 @@
-import { ChangeEvent, ReactNode, RefObject, useEffect, useRef } from "react";
+import { ReactNode, RefObject, useEffect, useRef } from "react";
+import { useMovieAppContext } from "../../context/movie-app-context/movie-app-context";
 import useKey from "../../hooks/useKey/useKey";
 import styles from "./search.module.less";
 
 export interface SearchProps {
-  query?: string;
-  inputRef?: RefObject<HTMLInputElement>;
-  handleSearch: (e?: ChangeEvent<HTMLInputElement>) => void;
   children?: ReactNode;
   testId?: string;
 }
 
-const handleEnter = (key: string, params: SearchProps) => {
+interface HandleEnterProps {
+  key: string;
+  inputRef: RefObject<HTMLDivElement>;
+  handleSearch: () => void;
+}
+
+const handleEnter = (params: HandleEnterProps) => {
+  const { key, inputRef, handleSearch } = params;
   if (key === "Enter") {
-    const { inputRef, handleSearch } = params;
     if (inputRef?.current) {
       if (document.activeElement === inputRef.current) return;
       handleSearch();
@@ -21,28 +25,27 @@ const handleEnter = (key: string, params: SearchProps) => {
   }
 };
 
-export default function Search(props: SearchProps): JSX.Element {
+export default function Search(props: SearchProps) {
+  const { query, handleSearch } = useMovieAppContext();
   const inputRef = useRef<HTMLInputElement>(null);
-  const { query, testId, handleSearch, children } = props;
+  const { testId, children } = props;
 
+  useKey((key) => handleEnter({ key, inputRef, handleSearch }));
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
 
-  const keyHandlerParams = { inputRef, handleSearch };
-  useKey((key) => handleEnter(key, keyHandlerParams));
-
   return (
     <section className={styles["search-wrapper"]}>
       <input
+        value={query}
         ref={inputRef}
+        data-testid={testId}
         className={styles.search}
         type="text"
-        placeholder="Search movies..."
-        value={query}
-        onChange={handleSearch}
-        data-testid={testId}
         role="search"
+        placeholder="Search movies..."
+        onChange={handleSearch}
       />
       {children && <div>{children}</div>}
     </section>

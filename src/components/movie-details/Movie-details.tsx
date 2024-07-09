@@ -1,43 +1,36 @@
 import { useState, useEffect } from "react";
+import { useMovieAppContext } from "../../context/movie-app-context/movie-app-context";
+import { MovieProps } from "../movie/Movie";
 import useKey from "../../hooks/useKey/useKey";
 import Loading from "../loader/Loader";
 import StarRating from "../star-rating/Star-rating";
 import Button from "../button/Button";
-import { MovieDetailsProps } from "../movie/Movie";
 import styles from "./movie-details.module.less";
 
 const API_KEY = "d74493d0";
 
-export interface DetailsProps {
-  watched: MovieDetailsProps[];
-  selectedId: string;
-  handleCloseDetails: () => void;
-  handleUpdateWatchlist: (movie: MovieDetailsProps) => void;
+export interface MovieDetailsProps {
   testId?: string;
 }
 
-export default function MovieDetails(props: DetailsProps): JSX.Element {
-  const [movie, setMovie] = useState<MovieDetailsProps>({});
+export default function MovieDetails(props: MovieDetailsProps) {
+  const { watched, selectedId, handleCloseDetails, handleUpdateWatchedlist } =
+    useMovieAppContext();
+  const [movie, setMovie] = useState<MovieProps>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [userRating, setUserRating] = useState<number | null>(null);
 
-  const {
-    selectedId,
-    watched,
-    testId,
-    handleUpdateWatchlist,
-    handleCloseDetails,
-  } = props;
+  const { testId } = props;
 
   const {
-    Title,
-    Poster,
-    Runtime,
-    Plot,
-    Released,
-    Actors,
-    Director,
-    Genre,
+    Title: title,
+    Poster: poster,
+    Runtime: runtime,
+    Plot: plot,
+    Released: released,
+    Actors: actors,
+    Director: director,
+    Genre: genre,
     imdbRating,
     imdbID,
   } = movie;
@@ -48,14 +41,14 @@ export default function MovieDetails(props: DetailsProps): JSX.Element {
 
   const updateWatchlist = () => {
     const movieData = {
-      Title,
-      Poster,
-      Runtime,
-      imdbID,
+      Title: title,
+      Poster: poster,
+      Runtime: runtime,
       imdbRating,
-      userRating,
+      imdbID,
+      userRating: `${userRating}`,
     };
-    handleUpdateWatchlist?.(movieData);
+    handleUpdateWatchedlist(movieData);
   };
 
   useEffect(() => {
@@ -73,11 +66,11 @@ export default function MovieDetails(props: DetailsProps): JSX.Element {
   }, [selectedId]);
 
   useEffect(() => {
-    document.title = `Movie | ${Title ?? "UsePopcorn"}`;
+    document.title = `Movie | ${title ?? "UsePopcorn"}`;
     return () => {
       document.title = "Movie | UsePopcorn";
     };
-  }, [Title]);
+  }, [title]);
 
   useKey(handleCloseDetails);
 
@@ -95,15 +88,15 @@ export default function MovieDetails(props: DetailsProps): JSX.Element {
             </Button>
             <img
               className={styles["poster-img"]}
-              src={Poster}
+              src={poster}
               alt={`Poster of ${movie} movie`}
             />
             <div className={styles.overview}>
-              <h2 className={styles["movie-title"]}>{Title}</h2>
+              <h2 className={styles["movie-title"]}>{title}</h2>
               <p>
-                {Released} &bull; {Runtime}
+                {released} &bull; {runtime}
               </p>
-              <p>{Genre}</p>
+              <p>{genre}</p>
               <p>⭐{imdbRating} IMDb rating</p>
             </div>
           </header>
@@ -131,10 +124,10 @@ export default function MovieDetails(props: DetailsProps): JSX.Element {
               )}
             </div>
             <p>
-              <em>{Plot}</em>
+              <em>{plot}</em>
             </p>
-            <p>Starting {Actors}</p>
-            <p>Directed by {Director}</p>
+            <p>Starting {actors}</p>
+            <p>Directed by {director}</p>
           </section>
         </>
       )}

@@ -1,43 +1,46 @@
-import { MovieComponentProps, MovieDetailsProps } from "../movie/Movie";
-import MovieStatistics, {
-  StatisticProps,
-} from "../movie-statistics/Movie-statistics";
+import { useMovieAppContext } from "../../context/movie-app-context/movie-app-context";
+import MovieStatistics from "../movie-statistics/Movie-statistics";
 import styles from "./movie-summary.module.less";
+
+export interface MovieSummaryProps {
+  testId?: string;
+}
 
 const average = (arr: number[]) =>
   arr.reduce((acc, cur) => acc + cur / arr.length, 0);
 
-export default function MovieSummary(
-  props: MovieComponentProps<MovieDetailsProps>
-): JSX.Element {
-  const { watched, testId } = props;
+export default function MovieSummary(props: MovieSummaryProps) {
+  const { watched } = useMovieAppContext();
+  const { testId } = props;
 
   const imdbRating = average(
-    watched!.map((movie) => Number(movie.imdbRating))
+    watched.map(({ imdbRating }) => Number(imdbRating))
   ).toFixed(1);
+
   const userRating = average(
-    watched!.map((movie) => Number(movie.userRating))
+    watched.map(({ userRating }) => Number(userRating))
   ).toFixed(1);
-  const Runtime = `${average(
-    watched!.map((movie: MovieDetailsProps) => {
-      const duration = Number(movie.Runtime?.split(" ").at(0));
+
+  const runtime = `${average(
+    watched.map(({ Runtime }) => {
+      const duration = Number(Runtime?.split(" ").at(0));
       return isNaN(duration) ? 0 : duration;
     })
   ).toFixed(1)} min`;
   ``;
 
-  const statistics: StatisticProps = {
-    watchedMoviesNumber: `${watched?.length} movies`,
-    imdbRating,
-    userRating,
-    runtime: Runtime,
-  };
-
   return (
     <div className={styles["movie-summary"]} data-testid={testId}>
       <h2 className={styles.title}>Movies you watched</h2>
       <div className={styles.statistics}>
-        <MovieStatistics statistics={statistics} />
+        <MovieStatistics
+          statistics={{
+            imdbRating,
+            userRating: Number(userRating),
+            runtime,
+            watchedMoviesNumber: `${watched.length} movies`,
+          }}
+        />
       </div>
     </div>
   );
